@@ -36,4 +36,9 @@ public interface VItem {
 	 * @return the name of this (which is used in the pathes internal to the VSF).
 	 */
 	public String getName();
+	
+	/**
+	 * @param name : the new name of this.
+	 */
+	public void setName(String name);
 }
