@@ -45,7 +45,6 @@ public class VFS {
 		//Writing the vfs in a file calling the generate method.
 
 		this.generate(filePath); //Exceptions are managed in the generate method.
-
 	}
 
 
