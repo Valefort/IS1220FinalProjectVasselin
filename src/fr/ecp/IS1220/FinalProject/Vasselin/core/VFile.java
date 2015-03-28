@@ -93,5 +93,5 @@ public class VFile implements Serializable, VItem {
 	public void setName(String name) {
 		this.name=name;
 	}
-
+	
 }
