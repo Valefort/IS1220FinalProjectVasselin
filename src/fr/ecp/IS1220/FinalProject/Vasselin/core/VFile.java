@@ -5,6 +5,10 @@ import java.util.List;
 
 public class VFile implements Serializable, VItem {
 
+	private static final long serialVersionUID = 7146324727556062468L;
+	
+	//Attributes
+
 	@Override
 	public List<VItem> getSuccessors() {
 		// TODO Auto-generated method stub

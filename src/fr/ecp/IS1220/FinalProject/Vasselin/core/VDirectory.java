@@ -1,9 +1,14 @@
 package fr.ecp.IS1220.FinalProject.Vasselin.core;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VDirectory implements VItem, Serializable {
+	
+	private static final long serialVersionUID = 1632944914587944390L;
+	
+	//Attributes
 	
 	private List<VDirectory> directories;
 	private List<VFile> files;
@@ -34,8 +39,10 @@ public class VDirectory implements VItem, Serializable {
 
 	@Override
 	public List<VItem> getSuccessors() {
-		// TODO Auto-generated method stub
-		return null;
+		List<VItem> res = new ArrayList<VItem>();
+		res.addAll(directories);
+		res.addAll(files);
+		return res;
 	}
 
 	@Override
