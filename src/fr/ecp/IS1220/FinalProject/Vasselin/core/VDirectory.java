@@ -126,4 +126,9 @@ public class VDirectory implements VItem, Serializable {
 		return name;
 	}
 
+	@Override
+	public void setName(String name) {
+		this.name=name;
+	}
+
 }

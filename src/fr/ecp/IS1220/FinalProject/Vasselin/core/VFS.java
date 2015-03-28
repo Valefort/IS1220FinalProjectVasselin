@@ -30,11 +30,18 @@ public class VFS {
 	 * @param maxSpace
 	 * 
 	 * This constructor creates a new VFS in the concrete file system with the specified maxSpace size, and initialize it.
-	 * The initialization process implies :
+<<<<<<< HEAD
+	 * The initialisation process implies :
 	 *     - adaptation of the the path
 	 *     - creation of the root VDirectory
 	 *     
 	 * /!\ No memory is allowed on the hard drive, the file that is created weights 0kB
+=======
+	 * The initialisation process implies :
+	 *     - creating the root VDirectory
+	 *     - 
+	 *     - 
+>>>>>>> branch 'master' of https://github.com/Valefort/IS1220FinalProjectVasselin.git
 	 */
 	public VFS(long maxSpace, String path) {
 		this.root = new VDirectory(); 
