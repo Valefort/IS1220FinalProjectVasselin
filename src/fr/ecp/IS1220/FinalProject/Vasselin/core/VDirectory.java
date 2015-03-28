@@ -12,11 +12,44 @@ public class VDirectory implements VItem, Serializable {
 	
 	private List<VDirectory> directories;
 	private List<VFile> files;
+	private String name;
 	
 	//Constructors
 	
+	/**
+	 * cCeates a directory named name containing directories and files.
+	 * @param name : the name of this directory
+	 * @param directories : list of the direct successors directories of this.
+	 * @param files : list of the direct successors files of this.
+	 */
+	public VDirectory(String name,List<VDirectory> directories, List<VFile> files) {
+		super();
+		this.name = name;
+		this.directories = directories;
+		this.files = files;
+	}
 	
-	
+	/**
+	 * Creates an empty directory named name.
+	 * @param name : the name of this directory
+	 */
+	public VDirectory(String name) {
+		super();
+		this.name = name;
+		this.directories = new ArrayList<VDirectory>();
+		this.files = new ArrayList<VFile>();
+	}
+
+	/**
+	 * Creates an empty directory named "New directory".
+	 */
+	public VDirectory() {
+		super();
+		name = "New directory";
+		directories = new ArrayList<VDirectory>();
+		files = new ArrayList<VFile>();
+	}
+
 	//Getters & Setters
 	
 	public List<VDirectory> getDirectories() {
@@ -47,32 +80,50 @@ public class VDirectory implements VItem, Serializable {
 
 	@Override
 	public void add(VItem i) {
-		// TODO Auto-generated method stub
-
+		if(i instanceof VDirectory)
+			directories.add((VDirectory)i);
+		else if(i instanceof VFile)
+			files.add((VFile)i);
 	}
 
 	@Override
 	public VItem remove(VItem s) throws VItemNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		if(!contains(s))
+			throw new VItemNotFoundException();
+		if(s instanceof VDirectory){
+			VDirectory res = (VDirectory)s;
+			directories.remove(s);
+			return res;
+		}
+		else if(s instanceof VFile){
+			VFile res = (VFile)s;
+			files.remove(s);
+			return res;
+		}
+		return null;//never reached
 	}
 
 	@Override
 	public boolean contains(VItem i) {
-		// TODO Auto-generated method stub
-		return false;
+		if(i instanceof VDirectory)
+			return directories.contains(i);
+		else if(i instanceof VFile)
+			return files.contains(i);
+		else
+			return false;//never reached
 	}
 
 	@Override
 	public long getSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		long res=0;
+		for(VItem i : getSuccessors())
+			res+=i.getSize();
+		return res;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 }
