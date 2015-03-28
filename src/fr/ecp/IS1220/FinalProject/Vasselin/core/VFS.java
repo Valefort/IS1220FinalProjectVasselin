@@ -2,6 +2,8 @@ package fr.ecp.IS1220.FinalProject.Vasselin.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 public class VFS {
 	//----------Attributes------------
@@ -38,17 +40,16 @@ public class VFS {
 		this.maxSpace = maxSpace;
 
 		//Generating the path to create the vfs, function of the OS.
-		String filePath = new String();
+		Path filePath = FileSystems.getDefault().getPath(path);
 
 		//Writing the vfs in a file calling the generate method.
-
 		this.generate(filePath); //Exceptions are managed in the generate method.
 	}
 
 
-	private void generate(String filePath){
+	private void generate(Path filePath){
 		try {
-			File file = new File(filePath);
+			File file = new File(filePath.toString());
 			file.createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
