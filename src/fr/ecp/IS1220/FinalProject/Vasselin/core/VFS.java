@@ -1,8 +1,6 @@
 package fr.ecp.IS1220.FinalProject.Vasselin.core;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class VFS {

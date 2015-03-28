@@ -17,7 +17,7 @@ public class VDirectory implements VItem, Serializable {
 	//Constructors
 	
 	/**
-	 * cCeates a directory named name containing directories and files.
+	 * Creates a directory named name containing directories and files.
 	 * @param name : the name of this directory
 	 * @param directories : list of the direct successors directories of this.
 	 * @param files : list of the direct successors files of this.
