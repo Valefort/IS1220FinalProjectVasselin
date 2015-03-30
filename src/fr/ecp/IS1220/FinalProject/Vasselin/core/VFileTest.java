@@ -120,5 +120,15 @@ public class VFileTest {
 		test.setName("This is a test.");
 		assertEquals("This is a test.",test.getName());
 	}
+	
+	@Test
+	public void testImportVItem() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testExportVItem() {
+		fail("Not yet implemented");
+	}
 
 }

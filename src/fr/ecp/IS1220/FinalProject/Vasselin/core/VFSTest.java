@@ -41,7 +41,12 @@ public class VFSTest {
 		//Does work
 		new VFS(30, "myVFS1.vfs");
 		assertTrue(new File("myVFS1.vfs").exists());
-		
+		File f = new File("myVFS1.vfs");
+		assertEquals(30,f.length());
 	}
 
+	@Test
+	public void  testImportVItem() {
+		fail("Not yet implemented");
+	}
 }

@@ -1,6 +1,7 @@
 package fr.ecp.IS1220.FinalProject.Vasselin.core;
 
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,6 +93,18 @@ public class VFile implements Serializable, VItem {
 	@Override
 	public void setName(String name) {
 		this.name=name;
+	}
+
+	@Override
+	public void importVItem(Path path) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exportVItem(Path path) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

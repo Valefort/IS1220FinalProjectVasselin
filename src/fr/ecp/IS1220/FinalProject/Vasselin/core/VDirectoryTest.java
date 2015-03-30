@@ -95,5 +95,15 @@ public class VDirectoryTest {
 		System.out.println("The name of the directory equals to dirRenamed ? " + dir1.getName().equals("dirRenamed"));
 		assertTrue(dir1.getName().equals("dirRenamed"));
 	}
+	
+	@Test
+	public void testImportVItem() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testExportVItem() {
+		fail("Not yet implemented");
+	}
 
 }
