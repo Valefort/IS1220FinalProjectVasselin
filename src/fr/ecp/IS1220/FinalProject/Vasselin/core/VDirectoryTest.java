@@ -97,12 +97,12 @@ public class VDirectoryTest {
 	}
 	
 	@Test
-	public void testImportVItem() {
+	public void testExportVItem() {
 		fail("Not yet implemented");
 	}
 	
 	@Test
-	public void testExportVItem() {
+	public void testImportVDirectory() {
 		fail("Not yet implemented");
 	}
 

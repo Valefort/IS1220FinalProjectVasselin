@@ -60,7 +60,7 @@ public class VFS {
 			//file.createNewFile();
 			FileOutputStream out = new FileOutputStream(file);
 			byte n[]={0};
-			for(int i=0;i<this.maxSpace;i++)
+			for(long i=0;i<this.maxSpace;i++)
 				out.write(n);
 			out.close();
 		} catch (IOException e) {
@@ -69,17 +69,4 @@ public class VFS {
 
 	}
 	
-	//Import
-	
-	/**
-	 * Creates a VItem from the file/directory targeted by path.
-	 * Note : internally uses the importVItem from VItem on the right VItem type (directory/file)
-	 * @param path
-	 * @return a VItem created from the target of the path.
-	 * Note : internally uses the importVItem from VItem on the right VItem type (directory/file)
-	 */
-	public VItem importVItem(Path path){
-		return null;
-	}
-
 }

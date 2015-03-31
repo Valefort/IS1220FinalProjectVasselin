@@ -96,15 +96,18 @@ public class VFile implements Serializable, VItem {
 	}
 
 	@Override
-	public void importVItem(Path path) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void exportVItem(Path path) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	//Import
+	
+	/**
+	 * Internal use (in the factory)
+	 */
+	protected void importVFile(Path path) {
+		// TODO Auto-generated method stub
 	}
 	
 }

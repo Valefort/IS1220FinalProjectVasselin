@@ -44,9 +44,5 @@ public class VFSTest {
 		File f = new File("myVFS1.vfs");
 		assertEquals(30,f.length());
 	}
-
-	@Test
-	public void  testImportVItem() {
-		fail("Not yet implemented");
-	}
+	
 }

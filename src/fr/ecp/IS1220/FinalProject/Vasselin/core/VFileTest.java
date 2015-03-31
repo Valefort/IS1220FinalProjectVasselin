@@ -122,12 +122,12 @@ public class VFileTest {
 	}
 	
 	@Test
-	public void testImportVItem() {
+	public void testExportVItem() {
 		fail("Not yet implemented");
 	}
 	
 	@Test
-	public void testExportVItem() {
+	public void testImportVFile() {
 		fail("Not yet implemented");
 	}
 

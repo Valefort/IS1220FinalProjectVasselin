@@ -133,13 +133,17 @@ public class VDirectory implements VItem, Serializable {
 	}
 
 	@Override
-	public void importVItem(Path path) {
+	public void exportVItem(Path path) {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void exportVItem(Path path) {
+	
+	//Import
+	
+	/**
+	 *Internal use in factory
+	 */
+	protected void importVDirectory(Path path) {
 		// TODO Auto-generated method stub
 		
 	}

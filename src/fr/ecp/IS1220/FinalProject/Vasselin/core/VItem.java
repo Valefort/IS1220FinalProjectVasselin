@@ -42,13 +42,6 @@ public interface VItem {
 	 * @param name : the new name of this.
 	 */
 	public void setName(String name);
-
-	/**
-	 * Deletes the content of this and replace it with the content of the targeted file/directory.
-	 * @param path : the path from which this VItem will be loaded.
-	 * It MUST be of the same type as this, i.e directory for VDirectory and file for VFile.
-	 */
-	public void importVItem(Path path);
 	
 	/**
 	 * exports this to a file or directory outside of the VFS.
