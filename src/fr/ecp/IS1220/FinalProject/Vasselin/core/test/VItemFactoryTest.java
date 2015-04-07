@@ -21,6 +21,12 @@ import java.nio.file.Paths;
 
 public class VItemFactoryTest {
 	
+	/*
+	 * Des tests sur la création et l'édition de fichiers et dossiers ainsi que 
+	 * la gestion des chemins sont à réaliser afin de débugguer tout ça...
+	 * 
+	 */
+	
 	//il faudra mettre du contenu dans les fichiers
 	
 	private Boolean checkFileImported(File file,VFile vfile) {
