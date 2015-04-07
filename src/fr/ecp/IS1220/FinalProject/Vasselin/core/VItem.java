@@ -1,5 +1,6 @@
 package fr.ecp.IS1220.FinalProject.Vasselin.core;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -45,7 +46,10 @@ public interface VItem {
 	
 	/**
 	 * exports this to a file or directory outside of the VFS.
-	 * @param path : the path where to write this VItem
+	 * @param path : the path where to write this VItem. The path must target a directory,
+	 * where the VItem will be exported (if not, exportVItem will throw an IOException). It must not contain the name of the written file, which will be
+	 * the same as this.getName(). Of you want to change this name, you can either rename the file before
+	 * or after exporting it.
 	 */
-	public void exportVItem(Path path);
+	public void exportVItem(Path path) throws IOException;
 }

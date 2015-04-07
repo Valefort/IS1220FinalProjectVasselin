@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class VItemFactory {
 
@@ -19,7 +19,7 @@ public class VItemFactory {
 	 * @see VItem exportVItem
 	 */
 	public static VItem importVItem(Path path) throws FileTooLargeException, IOException{
-		File f = new File(path.toString());
+		File f = path.toFile();
 		if(f.isFile()){
 			byte[] data=null;
 			try{data=new byte[(int)f.length()];}
@@ -33,7 +33,7 @@ public class VItemFactory {
 		}else{//here, f is a directory
 			VItem res = new VDirectory(f.getName());
 			for(String s : f.list()){
-				res.add(importVItem(Paths.get(s)));
+				res.add(importVItem(FileSystems.getDefault().getPath(s)));
 			}
 			return res;
 		}

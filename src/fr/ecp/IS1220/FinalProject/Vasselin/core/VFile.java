@@ -1,5 +1,10 @@
 package fr.ecp.IS1220.FinalProject.Vasselin.core;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -8,14 +13,14 @@ import java.util.List;
 public class VFile implements Serializable, VItem {
 
 	private static final long serialVersionUID = 7146324727556062468L;
-	
+
 	//Attributes
-	
+
 	private String name;
 	private byte[] data;
-	
+
 	//Constructors
-	
+
 	/**
 	 * Builds a VFile containing the data and named name.
 	 * @param name : the name of this.
@@ -45,9 +50,9 @@ public class VFile implements Serializable, VItem {
 		name = "New file";
 		data = new byte[0];
 	}
-	
+
 	//Getters and Setters
-	
+
 	public byte[] getData() {
 		return data;
 	}
@@ -96,9 +101,19 @@ public class VFile implements Serializable, VItem {
 	}
 
 	@Override
-	public void exportVItem(Path path) {
-		// TODO Auto-generated method stub
+	public void exportVItem(Path path) throws IOException{
+		File f = path.toFile();
+		if(!f.isDirectory())
+			throw new IOException("The specified path is not a directory : "+f.getName());
 		
+		OutputStream out1 = new FileOutputStream(f);
+		DataOutputStream out = new DataOutputStream(out1);
+		
+		out.write(getData());
+		
+		out.close();
+		out1.close();
 	}
 	
 }
+

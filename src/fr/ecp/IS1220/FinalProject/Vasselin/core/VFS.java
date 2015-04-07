@@ -3,10 +3,15 @@ package fr.ecp.IS1220.FinalProject.Vasselin.core;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
-public class VFS {
+public class VFS implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1448298108902955253L;
 	//----------Attributes------------
 	private VDirectory root;
 	private long maxSpace;
@@ -45,15 +50,6 @@ public class VFS {
 		//Writing the vfs in a file calling the generate method.
 		this.generate(filePath); //Exceptions are managed in the generate method.
 	}
-	
-	/**
-	 * This constructor opens an existing VFS at path, and raises an IOException if no VFS is found at the given location.
-	 * @param path : the path to an existing VFS in the host file system.
-	 */
-	public VFS(String path) throws IOException{
-		//to be implemented.
-	}
-
 
 	/**
 	 * Creates a file containing zeros, of the size maxSpace.
@@ -62,7 +58,7 @@ public class VFS {
 	 */
 	private void generate(Path filePath){
 		try {
-			File file = new File(filePath.toString());
+			File file = filePath.toFile();
 			//file.createNewFile();
 			FileOutputStream out = new FileOutputStream(file);
 			byte n[]={0};

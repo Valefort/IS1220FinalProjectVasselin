@@ -48,9 +48,4 @@ public class VFSTest {
 		assertEquals(30,f.length());
 	}
 	
-	@Test
-	public void testVFSOpenConstructor() {
-		fail("Not yet implemented");
-	}
-	
 }
