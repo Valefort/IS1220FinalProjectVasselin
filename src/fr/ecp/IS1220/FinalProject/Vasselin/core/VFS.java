@@ -28,7 +28,7 @@ public class VFS {
 
 	//----------Constructors----------
 	/**
-	 * @param maxSpace
+	 * @param maxSpace : the maximum storage space of the VFS, i.e the size of the VFS file on the host file system.
 	 * 
 	 * This constructor creates a new VFS in the concrete file system with the specified maxSpace size, and initialize it.
 	 * The initialisation process implies :

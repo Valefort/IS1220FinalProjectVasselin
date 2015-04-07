@@ -137,15 +137,5 @@ public class VDirectory implements VItem, Serializable {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	//Import
-	
-	/**
-	 *Internal use in factory
-	 */
-	protected void importVDirectory(Path path) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
