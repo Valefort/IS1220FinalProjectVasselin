@@ -34,8 +34,6 @@ public class VFS {
 	 * The initialisation process implies :
 	 *     - adaptation of the the path
 	 *     - creation of the root VDirectory
-	 *     
-	 * /!\ No memory is allowed on the hard drive, the file that is created weights 0kB
 	 */
 	public VFS(long maxSpace, String path) {
 		this.root = new VDirectory(); 
@@ -46,6 +44,14 @@ public class VFS {
 
 		//Writing the vfs in a file calling the generate method.
 		this.generate(filePath); //Exceptions are managed in the generate method.
+	}
+	
+	/**
+	 * This constructor opens an existing VFS at path, and raises an IOException if no VFS is found at the given location.
+	 * @param path : the path to an existing VFS in the host file system.
+	 */
+	public VFS(String path) throws IOException{
+		//to be implemented.
 	}
 
 
