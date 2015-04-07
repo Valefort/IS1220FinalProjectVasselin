@@ -1,4 +1,4 @@
-package fr.ecp.IS1220.FinalProject.Vasselin.test;
+package fr.ecp.IS1220.FinalProject.Vasselin.core.test;
 
 import static org.junit.Assert.*;
 
