@@ -1,5 +1,6 @@
 package fr.ecp.IS1220.FinalProject.Vasselin.test;
 
+import fr.ecp.IS1220.FinalProject.Vasselin.core.*;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import org.junit.Test;
 
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VDirectory;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VItem;
 
 public class VDirectoryTest {
 
@@ -85,7 +87,15 @@ public class VDirectoryTest {
 
 	@Test
 	public void testGetSuccessors() {
-		fail("Not yet implemented");
+		ArrayList<VItem> successors = new ArrayList<VItem>();
+		successors.add(new VFile("F1"));
+		successors.add(new VFile("F2"));
+		successors.add(new VFile("F3"));		
+		successors.add(new VDirectory("D1"));
+		successors.add(new VDirectory("D2"));
+		successors.add(new VDirectory("D3"));	
+		assertTrue(successors.equals(successors.getSuccessors()));
+		
 	}
 
 	@Test
@@ -125,11 +135,6 @@ public class VDirectoryTest {
 
 	@Test
 	public void testExportVItem() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testImportVDirectory() {
 		fail("Not yet implemented");
 	}
 
