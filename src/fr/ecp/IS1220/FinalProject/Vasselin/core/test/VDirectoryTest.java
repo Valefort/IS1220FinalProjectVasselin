@@ -1,6 +1,5 @@
 package fr.ecp.IS1220.FinalProject.Vasselin.core.test;
 
-import fr.ecp.IS1220.FinalProject.Vasselin.core.*;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -87,14 +86,25 @@ public class VDirectoryTest {
 
 	@Test
 	public void testGetSuccessors() {
+		
+		ArrayList<VDirectory> dirList = new ArrayList<VDirectory>();
+		dirList.add(new VDirectory("D1"));
+		dirList.add(new VDirectory("D2"));
+		dirList.add(new VDirectory("D3"));
+		
+		ArrayList<VFile> fileList = new ArrayList<VFile>();
+		fileList.add(new VFile("F1"));
+		fileList.add(new VFile("F2"));
+		fileList.add(new VFile("F3"));		
+
 		ArrayList<VItem> successors = new ArrayList<VItem>();
-		successors.add(new VFile("F1"));
-		successors.add(new VFile("F2"));
-		successors.add(new VFile("F3"));		
-		successors.add(new VDirectory("D1"));
-		successors.add(new VDirectory("D2"));
-		successors.add(new VDirectory("D3"));	
-		assertTrue(successors.equals(successors.getSuccessors()));
+		
+		successors.addAll(dirList);
+		successors.addAll(fileList);
+
+		VDirectory containerDir = new VDirectory("containerDir", dirList, fileList);
+		
+		assertTrue(successors.equals(containerDir.getSuccessors()));
 		
 	}
 
