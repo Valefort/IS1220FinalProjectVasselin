@@ -34,7 +34,7 @@ public interface VItem {
 	public long getSize();
 
 	/**
-	 * @return the name of this (which is used in the pathes internal to the VSF).
+	 * @return the name of this (which is used in the paths internal to the VSF).
 	 */
 	public String getName();
 
