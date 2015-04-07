@@ -1,9 +1,12 @@
-package fr.ecp.IS1220.FinalProject.Vasselin.core;
+package fr.ecp.IS1220.FinalProject.Vasselin.test;
 
 import static org.junit.Assert.*;
+
 import java.io.File;
 
 import org.junit.Test;
+
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VFS;
 
 public class VFSTest {
 
