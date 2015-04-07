@@ -26,7 +26,7 @@ public class VFSTest {
 	}
 
 	@Test
-	public void testVFS() {
+	public void testVFSCreativeConstructor() {
 		
 		//Does not work
 //		new VFS(30, "/Final Project Vasselin/testVFS_Constructor/myVFS1.vfs");
@@ -46,6 +46,11 @@ public class VFSTest {
 		assertTrue(new File("myVFS1.vfs").exists());
 		File f = new File("myVFS1.vfs");
 		assertEquals(30,f.length());
+	}
+	
+	@Test
+	public void testVFSOpenConstructor() {
+		fail("Not yet implemented");
 	}
 	
 }
