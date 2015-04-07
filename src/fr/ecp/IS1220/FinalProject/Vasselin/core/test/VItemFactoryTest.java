@@ -20,6 +20,25 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class VItemFactoryTest {
+	
+	/*
+	 * Des tests sur la création et l'édition de fichiers et dossiers ainsi que 
+	 * la gestion des chemins sont à réaliser afin de débugguer tout ça...
+	 * 
+	 */
+	
+	//il faudra mettre du contenu dans les fichiers
+	
+	private Boolean checkFileImported(File file,VFile vfile) {
+		Boolean result = new Boolean(false);
+		result = file.getName().equals(vfile.getName());
+		
+		//ici on vérifie que le contenu en terme de bits est le même
+		
+		//Et il reste un bout à coder pour les dossiers...
+		
+		return result;
+	}
 
 	@Test
 	/**
@@ -34,6 +53,8 @@ public class VItemFactoryTest {
 	 */
 	public void testimportVItem() {
 		Boolean bool1, bool2; //The test succeed if bool1 && bool2
+		bool1 = new Boolean(false);
+		bool2 = new Boolean(false);
 		
 		VFS myVFS = new VFS(100000000, "myVFS.vfs"); //creating a new VFS
 		
@@ -50,6 +71,14 @@ public class VItemFactoryTest {
 		}catch(Exception e){fail("File too large or io exception raised.");}
 		
 		File dir1 = new File("dir1"); // creating a new directory
+		if(!dir1.exists()){
+			try{
+				dir1.mkdir();
+			}catch(SecurityException e){
+				fail("Folder dir1 already exists.");
+			}
+		}
+		
 		//adding files and directory in the directory
 		/*
 		 * dir1
@@ -61,18 +90,27 @@ public class VItemFactoryTest {
 		File file1 = new File("dir1\\file1.file");
 		File file2 = new File("dir1\\file2.file");
 		File dir2 = new File("dir1\\dir2");
+		if(!dir2.exists()){
+			try{
+				dir2.mkdir();
+			}catch(SecurityException e){
+				fail("Folder dir2 already exists.");
+			}
+		}
 		File file3 = new File("dir1\\dir2\\file3.file");
 		
-		
 		try{
-			VItem vitem1 = VItemFactory.importVItem(dir1.toPath());
-			myVFS.getRoot().add(vitem1);
-			bool1 = myVFS.getRoot().contains(vitem1) && vitem1 !=null;
-					
-					;
+			VItem dir1Imported = VItemFactory.importVItem(dir1.toPath());
+			myVFS.getRoot().add(dir1Imported);
+			
+			bool2 = checkFileImported(file1, myVFS.getRoot().getDirectories().get(0).getFiles().get(0)); //check if file1 is correctly imported
+			bool2 = bool2 && checkFileImported(file2, myVFS.getRoot().getDirectories().get(0).getFiles().get(1)); //check if file2 is correctly imported
+			bool2 = bool2 && checkFileImported(file3, myVFS.getRoot().getDirectories().get(0).getDirectories().get(0).getFiles().get(0)); //check if file3 is correctly imported
+			
+			
 		}catch(Exception e){fail("File too large or io exception raised.");}
 		
-		
+		assertTrue(bool1 && bool2);
 //		File theDir = new File("new folder");
 //
 //		// if the directory does not exist, create it
