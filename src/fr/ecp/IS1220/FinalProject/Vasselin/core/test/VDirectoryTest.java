@@ -110,21 +110,70 @@ public class VDirectoryTest {
 
 	@Test
 	public void testAdd() {
-		fail("Not yet implemented");
+		VDirectory dir1 = new VDirectory("D1");
+		VDirectory dir2 = new VDirectory("D2");	
+		VFile file1 = new VFile("F1");
+		VFile file2 = new VFile("F2");
+
+		VDirectory containerDir = new VDirectory("containerDir");
+		
+		containerDir.add(dir1);
+		containerDir.add(dir2);
+		
+		containerDir.add(file1);
+		containerDir.add(file2);
+
+		assertTrue(containerDir.contains(dir1) && containerDir.contains(dir2) && containerDir.contains(file1) && containerDir.contains(file2));
+		
 	}
 
 	@Test
 	public void testRemove() {
-		fail("Not yet implemented");
+		ArrayList<VDirectory> dirList = new ArrayList<VDirectory>();
+		VDirectory dir1 = new VDirectory("D1");
+		VDirectory dir2 = new VDirectory("D2");	
+		dirList.add(dir1);
+		dirList.add(dir2);
+		
+		ArrayList<VFile> fileList = new ArrayList<VFile>();
+		VFile file1 = new VFile("F1");
+		VFile file2 = new VFile("F2");
+		fileList.add(file1);
+		fileList.add(file2);
+
+		VDirectory containerDir = new VDirectory("containerDir", dirList, fileList);
+
+		try{
+			containerDir.remove(dir1);
+			containerDir.remove(file1);
+		}
+		catch(Exception e){fail("File to remove not found.");}
+		
+		assertTrue(!containerDir.contains(dir1) && containerDir.contains(dir2) && !containerDir.contains(file1) && containerDir.contains(file2));
 	}
 
 	@Test
 	public void testContains() {
-		fail("Not yet implemented");
+		ArrayList<VDirectory> dirList = new ArrayList<VDirectory>();
+		VDirectory dir1 = new VDirectory("D1");
+		VDirectory dir2 = new VDirectory("D2");	
+		dirList.add(dir1);
+		dirList.add(dir2);
+		
+		ArrayList<VFile> fileList = new ArrayList<VFile>();
+		VFile file1 = new VFile("F1");
+		VFile file2 = new VFile("F2");
+		fileList.add(file1);
+		fileList.add(file2);
+
+		VDirectory containerDir = new VDirectory("containerDir", dirList, fileList);
+		
+		assertTrue(containerDir.contains(dir1) && containerDir.contains(dir2) && containerDir.contains(file1) && containerDir.contains(file2));
 	}
 
 	@Test
 	public void testGetSize() {
+		//import functions need to be tested before getSize()
 		fail("Not yet implemented");
 	}
 

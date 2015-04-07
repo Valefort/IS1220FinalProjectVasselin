@@ -8,12 +8,12 @@ import java.nio.file.Path;
 
 public class VFS {
 	//----------Attributes------------
-	private VItem root;
+	private VDirectory root;
 	private long maxSpace;
 
 
 	//----------Getters---------------
-	public VItem getRoot() {
+	public VDirectory getRoot() {
 		return root;
 	}
 	public long getMaxSpace() {

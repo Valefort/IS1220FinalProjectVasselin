@@ -4,11 +4,113 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import fr.ecp.IS1220.FinalProject.Vasselin.core.FileTooLargeException;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VDirectory;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VFS;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VItem;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VItemFactory;
+
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class VItemFactoryTest {
 
 	@Test
+	/**
+	 * This function in particular is hard to test : as the data is manipulated 
+	 * as bits, without the export function, there is no way to check that the 
+	 * import is correct.
+	 * Without export functions, one can test :
+	 *  - effective importation of the files with contain() and getSize()
+	 *  - recursive importation of folders, with conservation of the tree structure
+	 *  
+	 *  /!\ Does only support windows path notations for the moment
+	 */
 	public void testimportVItem() {
-		fail("Not yet implemented");
+		Boolean bool1, bool2; //The test succeed if bool1 && bool2
+		
+		VFS myVFS = new VFS(100000000, "myVFS.vfs"); //creating a new VFS
+		
+		File myFile = new File("myFile.file"); // creating a new file
+		
+		/*
+		 * This first test check the most basic importation of a file.
+		 * Integrity checking remains to be implemented.
+		 */
+		try{
+			VItem vitem1 = VItemFactory.importVItem(myFile.toPath()); //loading the file in a VItem
+			myVFS.getRoot().add(vitem1); //add the file in the root directory
+			bool1 = myVFS.getRoot().contains(vitem1) && vitem1 !=null;
+		}catch(Exception e){fail("File too large or io exception raised.");}
+		
+		File dir1 = new File("dir1"); // creating a new directory
+		//adding files and directory in the directory
+		/*
+		 * dir1
+		 * |-> file1.file
+		 * |-> file2.file
+		 * |-> dir2
+		 * 		|-> file3.file
+		 */
+		File file1 = new File("dir1\\file1.file");
+		File file2 = new File("dir1\\file2.file");
+		File dir2 = new File("dir1\\dir2");
+		File file3 = new File("dir1\\dir2\\file3.file");
+		
+		
+		try{
+			VItem vitem1 = VItemFactory.importVItem(dir1.toPath());
+			myVFS.getRoot().add(vitem1);
+			bool1 = myVFS.getRoot().contains(vitem1) && vitem1 !=null;
+					
+					;
+		}catch(Exception e){fail("File too large or io exception raised.");}
+		
+		
+//		File theDir = new File("new folder");
+//
+//		// if the directory does not exist, create it
+//		if (!theDir.exists()) {
+//		    System.out.println("creating directory: " + directoryName);
+//		    boolean result = false;
+//
+//		    try{
+//		        theDir.mkdir();
+//		        result = true;
+//		    } 
+//		    catch(SecurityException se){
+//		        //handle it
+//		    }        
+//		    if(result) {    
+//		        System.out.println("DIR created");  
+//		    }
+//		}
+		
+
+		
+//		Path path = file.getPath();
+//		File f = new File(path.toString());
+//		if(myFile.isFile()){
+//			byte[] data=null;
+//			try{data=new byte[(int)myFile.length()];}
+//			catch(ClassCastException e){throw new FileTooLargeException();}
+//			InputStream in1 = new FileInputStream(myFile);
+//			DataInputStream in = new DataInputStream(in1);
+//			in.read(data);
+//			in.close();
+//			in1.close();
+//			return new VFile(myFile.getName(),data);
+//		}else{//here, f is a directory
+//			VItem res = new VDirectory(myFile.getName());
+//			for(String s : myFile.list()){
+//				res.add(importVItem(Paths.get(s)));
+//			}
 	}
 
 }
