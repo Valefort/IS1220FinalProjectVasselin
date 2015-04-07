@@ -101,13 +101,4 @@ public class VFile implements Serializable, VItem {
 		
 	}
 	
-	//Import
-	
-	/**
-	 * Internal use (in the factory)
-	 */
-	protected void importVFile(Path path) {
-		// TODO Auto-generated method stub
-	}
-	
 }
