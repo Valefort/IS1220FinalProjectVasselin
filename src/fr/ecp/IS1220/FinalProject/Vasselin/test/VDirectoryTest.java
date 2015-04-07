@@ -1,10 +1,13 @@
-package fr.ecp.IS1220.FinalProject.Vasselin.core;
+package fr.ecp.IS1220.FinalProject.Vasselin.test;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
+
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VDirectory;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
 
 public class VDirectoryTest {
 
