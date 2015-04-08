@@ -10,9 +10,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.jar.Attributes.Name;
 
 import org.junit.Test;
 
+import fr.ecp.IS1220.FinalProject.Vasselin.core.NameConflictException;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VDirectory;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VItem;
@@ -94,45 +96,62 @@ public class VDirectoryTest {
 
 	@Test
 	public void testGetSuccessors() {
-		
+
 		ArrayList<VDirectory> dirList = new ArrayList<VDirectory>();
 		dirList.add(new VDirectory("D1"));
 		dirList.add(new VDirectory("D2"));
 		dirList.add(new VDirectory("D3"));
-		
+
 		ArrayList<VFile> fileList = new ArrayList<VFile>();
 		fileList.add(new VFile("F1"));
 		fileList.add(new VFile("F2"));
 		fileList.add(new VFile("F3"));		
 
 		ArrayList<VItem> successors = new ArrayList<VItem>();
-		
+
 		successors.addAll(dirList);
 		successors.addAll(fileList);
 
 		VDirectory containerDir = new VDirectory("containerDir", dirList, fileList);
-		
+
 		assertTrue(successors.equals(containerDir.getSuccessors()));
-		
+
 	}
 
 	@Test
-	public void testAdd() {
+	public void testAddWorksUnderNormalCircumstances() {
 		VDirectory dir1 = new VDirectory("D1");
 		VDirectory dir2 = new VDirectory("D2");	
 		VFile file1 = new VFile("F1");
 		VFile file2 = new VFile("F2");
 
 		VDirectory containerDir = new VDirectory("containerDir");
-		
-		containerDir.add(dir1);
-		containerDir.add(dir2);
-		
-		containerDir.add(file1);
-		containerDir.add(file2);
+
+		try{
+			containerDir.add(dir1);
+			containerDir.add(dir2);
+
+			containerDir.add(file1);
+			containerDir.add(file2);
+		}catch(NameConflictException e){
+			fail("A NameConflictException was thrown...");
+		}
+
 
 		assertTrue(containerDir.contains(dir1) && containerDir.contains(dir2) && containerDir.contains(file1) && containerDir.contains(file2));
-		
+
+	}
+
+	@Test(expected = NameConflictException.class)
+	public void testAddThrowsNameConflictExceptionWhenItShould() throws NameConflictException{
+		VDirectory dir = new VDirectory("D");
+		VFile file1 = new VFile("F1");
+		VFile file2 = new VFile("F1");
+
+		dir.add(file1);
+		dir.add(file2);
+
+		fail("No NameConflictException was thrown.");
 	}
 
 	@Test
@@ -142,7 +161,7 @@ public class VDirectoryTest {
 		VDirectory dir2 = new VDirectory("D2");	
 		dirList.add(dir1);
 		dirList.add(dir2);
-		
+
 		ArrayList<VFile> fileList = new ArrayList<VFile>();
 		VFile file1 = new VFile("F1");
 		VFile file2 = new VFile("F2");
@@ -156,7 +175,7 @@ public class VDirectoryTest {
 			containerDir.remove(file1);
 		}
 		catch(Exception e){fail("File to remove not found.");}
-		
+
 		assertTrue(!containerDir.contains(dir1) && containerDir.contains(dir2) && !containerDir.contains(file1) && containerDir.contains(file2));
 	}
 
@@ -167,7 +186,7 @@ public class VDirectoryTest {
 		VDirectory dir2 = new VDirectory("D2");	
 		dirList.add(dir1);
 		dirList.add(dir2);
-		
+
 		ArrayList<VFile> fileList = new ArrayList<VFile>();
 		VFile file1 = new VFile("F1");
 		VFile file2 = new VFile("F2");
@@ -175,7 +194,7 @@ public class VDirectoryTest {
 		fileList.add(file2);
 
 		VDirectory containerDir = new VDirectory("containerDir", dirList, fileList);
-		
+
 		assertTrue(containerDir.contains(dir1) && containerDir.contains(dir2) && containerDir.contains(file1) && containerDir.contains(file2));
 	}
 
@@ -189,19 +208,22 @@ public class VDirectoryTest {
 			int increment = Math.abs(r.nextInt())%50;
 			data = new byte[increment];
 			expectedSize+=increment;
-			tested.add(new VFile("whatever", data));
+			try{tested.add(new VFile("whatever"+i, data));}
+			catch(NameConflictException e){fail("A NameConflictException was thrown...");}
 		}
-		
+
 		VDirectory subdir = new VDirectory();
 		for(int i=0;i<10;i++){
 			int increment = Math.abs(r.nextInt())%50;
 			data = new byte[increment];
 			expectedSize+=increment;
-			subdir.add(new VFile("whatever", data));
+			try{subdir.add(new VFile("whatever"+i, data));}
+			catch(NameConflictException e){fail("A NameConflictException was thrown...");}
 		}
-		
-		tested.add(subdir);
-		
+
+		try{tested.add(subdir);}
+		catch(NameConflictException e){fail("A NameCOnflictException was thrown...");}
+
 		assertEquals(expectedSize, tested.getSize());
 	}
 
@@ -219,7 +241,7 @@ public class VDirectoryTest {
 	}
 
 	@Test
-	public void testExportVItem() throws IOException{
+	public void testExportVItem() throws IOException, NameConflictException{
 		//assuming import from VItemFactory works.
 		//generating a VDirectory with a subdirectory
 		byte[] data;
@@ -228,28 +250,32 @@ public class VDirectoryTest {
 		for(int i=0;i<5;i++){
 			int increment = Math.abs(r.nextInt())%50;
 			data = new byte[increment];
-			tested.add(new VFile("whatever", data));
+			tested.add(new VFile("whatever"+i, data));
 		}
-		
+
 		VDirectory subdir = new VDirectory();
 		for(int i=0;i<10;i++){
 			int increment = Math.abs(r.nextInt())%50;
 			data = new byte[increment];
-			subdir.add(new VFile("whatever", data));
+			subdir.add(new VFile("whatever"+(i+5), data));
 		}
-		
+
 		tested.add(subdir);
-		
+		//tested.print(0);
+
 		//exporting it
 		URL location = VDirectoryTest.class.getProtectionDomain().getCodeSource().getLocation();
 		try{tested.exportVItem(Paths.get(location.toURI()));}
 		catch(URISyntaxException e){fail("URI syntax exception raised... whatever that means");}
-		
 		//reimporting it
 		VDirectory testResult=null;
-		try{testResult = (VDirectory)VItemFactory.importVItem(Paths.get(location.toString(),"thisIsGreat"));}
-		catch(Exception e){fail("Exception was raised : "+e.toString());}//raises exception here
-		
+
+		try{
+			String target = Paths.get(location.toURI()).toString();
+			testResult = (VDirectory)VItemFactory.importVItem(Paths.get(target,"thisIsGreat"));}
+		catch(Exception e){fail("Exception was raised : "+e.toString());}
+		//testResult.print(0);
+
 		assertTrue(VItemFactoryTest.alike(testResult, tested));
 	}
 

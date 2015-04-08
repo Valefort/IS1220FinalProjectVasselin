@@ -13,8 +13,9 @@ public interface VItem {
 
 	/**
 	 * @param adds the VItem i to the successors of this.
+	 * @throws NameConflictException is thrown if i has the same name as one of the successors of this.
 	 */
-	public void add(VItem i);
+	public void add(VItem i) throws NameConflictException;
 
 	/**
 	 * @param s is the direct successor of this that will be removed and returned.

@@ -69,7 +69,7 @@ public class VFile implements Serializable, VItem {
 	}
 
 	@Override
-	public void add(VItem i) {
+	public void add(VItem i) throws NameConflictException{
 		//Defensive behaviour
 	}
 

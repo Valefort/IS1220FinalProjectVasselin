@@ -82,7 +82,12 @@ public class VDirectory implements VItem, Serializable {
 	}
 
 	@Override
-	public void add(VItem i) {
+	public void add(VItem i) throws NameConflictException{
+		for(VItem j : getSuccessors()){
+			if(j.getName()==i.getName())
+				throw new NameConflictException();
+		}
+		
 		if(i instanceof VDirectory)
 			directories.add((VDirectory)i);
 		else if(i instanceof VFile)
@@ -148,6 +153,18 @@ public class VDirectory implements VItem, Serializable {
 		for(VItem v : getSuccessors()){
 			v.exportVItem(myImage);
 		}
+	}
+	
+	//for debugging purposes only...
+	public void print(int l){
+		String alinea = new String();
+		for(int i=0;i<l;i++)
+			alinea+="    ";
+		System.out.println(alinea+"//"+getName());
+		for(VFile f : getFiles())
+			System.out.println(alinea+f.getName());
+		for(VDirectory d : getDirectories())
+			d.print(l+1);
 	}
 
 }

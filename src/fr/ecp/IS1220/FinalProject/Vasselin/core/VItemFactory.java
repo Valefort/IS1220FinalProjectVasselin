@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class VItemFactory {
 
@@ -16,9 +17,10 @@ public class VItemFactory {
 	 * @return a VItem created from the target of the path.
 	 * @throws FileTooLargeException is thrown if a file whose size is more than 2GB is encountered.
 	 * @throws IOException encountered while trying to read files are thrown too.
+	 * @throws NameConflictException if two files or directories have the same path, although this seems unlikely.
 	 * @see VItem exportVItem
 	 */
-	public static VItem importVItem(Path path) throws FileTooLargeException, IOException{
+	public static VItem importVItem(Path path) throws FileTooLargeException, IOException, NameConflictException{
 		File f = path.toFile();
 		if(f.isFile()){
 			byte[] data=null;
@@ -33,7 +35,7 @@ public class VItemFactory {
 		}else{//here, f is a directory
 			VItem res = new VDirectory(f.getName());
 			for(String s : f.list()){
-				res.add(importVItem(FileSystems.getDefault().getPath(s)));
+				res.add(importVItem(Paths.get(f.getPath(), s)));
 			}
 			return res;
 		}
