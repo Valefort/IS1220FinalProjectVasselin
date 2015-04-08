@@ -2,13 +2,21 @@ package fr.ecp.IS1220.FinalProject.Vasselin.core.test;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.junit.Test;
 
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VDirectory;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VItem;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VItemFactory;
 
 public class VDirectoryTest {
 
@@ -173,8 +181,28 @@ public class VDirectoryTest {
 
 	@Test
 	public void testGetSize() {
-		//import functions need to be tested before getSize()
-		fail("Not yet implemented");
+		byte[] data;
+		Random r = new Random();
+		int expectedSize=0;
+		VDirectory tested = new VDirectory();
+		for(int i=0;i<5;i++){
+			int increment = Math.abs(r.nextInt())%50;
+			data = new byte[increment];
+			expectedSize+=increment;
+			tested.add(new VFile("whatever", data));
+		}
+		
+		VDirectory subdir = new VDirectory();
+		for(int i=0;i<10;i++){
+			int increment = Math.abs(r.nextInt())%50;
+			data = new byte[increment];
+			expectedSize+=increment;
+			subdir.add(new VFile("whatever", data));
+		}
+		
+		tested.add(subdir);
+		
+		assertEquals(expectedSize, tested.getSize());
 	}
 
 	@Test
@@ -186,15 +214,43 @@ public class VDirectoryTest {
 	@Test
 	public void testSetName() {
 		VDirectory dir1 = new VDirectory("dir1");
-		System.out.println("The name of the directory equals to dir1 ? " + dir1.getName().equals("dir1"));
 		dir1.setName("dirRenamed");
-		System.out.println("The name of the directory equals to dirRenamed ? " + dir1.getName().equals("dirRenamed"));
 		assertTrue(dir1.getName().equals("dirRenamed"));
 	}
 
 	@Test
-	public void testExportVItem() {
-		fail("Not yet implemented");
+	public void testExportVItem() throws IOException{
+		//assuming import from VItemFactory works.
+		//generating a VDirectory with a subdirectory
+		byte[] data;
+		Random r = new Random();
+		VDirectory tested = new VDirectory("thisIsGreat");
+		for(int i=0;i<5;i++){
+			int increment = Math.abs(r.nextInt())%50;
+			data = new byte[increment];
+			tested.add(new VFile("whatever", data));
+		}
+		
+		VDirectory subdir = new VDirectory();
+		for(int i=0;i<10;i++){
+			int increment = Math.abs(r.nextInt())%50;
+			data = new byte[increment];
+			subdir.add(new VFile("whatever", data));
+		}
+		
+		tested.add(subdir);
+		
+		//exporting it
+		URL location = VDirectoryTest.class.getProtectionDomain().getCodeSource().getLocation();
+		try{tested.exportVItem(Paths.get(location.toURI()));}
+		catch(URISyntaxException e){fail("URI syntax exception raised... whatever that means");}
+		
+		//reimporting it
+		VDirectory testResult=null;
+		try{testResult = (VDirectory)VItemFactory.importVItem(Paths.get(location.toString(),"thisIsGreat"));}
+		catch(Exception e){fail("Exception was raised : "+e.toString());}//raises exception here
+		
+		assertTrue(VItemFactoryTest.alike(testResult, tested));
 	}
 
 }

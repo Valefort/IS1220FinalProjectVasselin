@@ -1,12 +1,8 @@
 package fr.ecp.IS1220.FinalProject.Vasselin.core;
 
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -144,8 +140,9 @@ public class VDirectory implements VItem, Serializable {
 		if(!f.isDirectory())
 			throw new IOException("The specified path is not a directory : "+f.getName());
 		
-		File me = new File(path.toFile(),getName());
-		if (!me.mkdir())
+		File me = new File(f,getName());
+		me.mkdir();
+		if (!me.exists())
 		    throw new IOException("The creation of the directory "+getName()+" failed.");
 		Path myImage = me.toPath();
 		for(VItem v : getSuccessors()){

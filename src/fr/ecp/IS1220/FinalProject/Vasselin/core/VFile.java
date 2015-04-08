@@ -23,7 +23,7 @@ public class VFile implements Serializable, VItem {
 
 	/**
 	 * Builds a VFile containing the data and named name.
-	 * @param name : the name of this.
+	 * @param name : the name of this. Should contain the extension of the file.
 	 * @param data : the data contained by this. WARNING : the max size of this array is 2^31, which represents 2 GB of data.
 	 */
 	public VFile(String name, byte[] data) {
@@ -106,7 +106,8 @@ public class VFile implements Serializable, VItem {
 		if(!f.isDirectory())
 			throw new IOException("The specified path is not a directory : "+f.getName());
 		
-		OutputStream out1 = new FileOutputStream(f);
+		File me = new File(f,getName());
+		OutputStream out1 = new FileOutputStream(me);
 		DataOutputStream out = new DataOutputStream(out1);
 		
 		out.write(getData());

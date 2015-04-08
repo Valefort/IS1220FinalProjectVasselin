@@ -3,6 +3,7 @@ package fr.ecp.IS1220.FinalProject.Vasselin.core.test;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class VFSTest {
 	}
 
 	@Test
-	public void testVFSCreativeConstructor() {
+	public void testVFS() throws IOException{
 		
 		//Does not work
 //		new VFS(30, "/Final Project Vasselin/testVFS_Constructor/myVFS1.vfs");
@@ -46,6 +47,11 @@ public class VFSTest {
 		assertTrue(new File("myVFS1.vfs").exists());
 		File f = new File("myVFS1.vfs");
 		assertEquals(30,f.length());
+	}
+	
+	@Test
+	public void testSaveLoad() {
+		fail("Not yet implemented");
 	}
 	
 }

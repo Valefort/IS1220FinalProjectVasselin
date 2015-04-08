@@ -10,7 +10,6 @@ import fr.ecp.IS1220.FinalProject.Vasselin.core.VFS;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VItem;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VItemFactory;
-
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,6 +38,28 @@ public class VItemFactoryTest {
 		
 		return result;
 	}
+	
+	//Mouais, je préferre ça (le vire pas, je l'utilise dans VDirectoryTest) :
+	protected static boolean alike(VItem a, VItem b){
+		if(a instanceof VDirectory){
+			if(b instanceof VDirectory){//on est du même type...
+				VDirectory a2 = (VDirectory)a;
+				VDirectory b2 = (VDirectory)b;
+				for(int i=0; i<a2.getSuccessors().size();i++){//on check que le contenu est le même.
+					if(!alike(a2.getSuccessors().get(i), b2.getSuccessors().get(i)))
+						return false;
+				}
+				return true;
+			}else
+				return false;
+		}else{
+			if(b instanceof VFile){//on est du même type...
+				return (a.getName()==b.getName()) && (((VFile)a).getData()==((VFile)b).getData());
+			}
+			else
+				return false;
+		}
+	}
 
 	@Test
 	/**
@@ -51,7 +72,7 @@ public class VItemFactoryTest {
 	 *  
 	 *  /!\ Does only support windows path notations for the moment
 	 */
-	public void testimportVItem() {
+	public void testimportVItem() throws IOException{
 		Boolean bool1, bool2; //The test succeed if bool1 && bool2
 		bool1 = new Boolean(false);
 		bool2 = new Boolean(false);
