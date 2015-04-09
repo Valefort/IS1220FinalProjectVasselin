@@ -2,28 +2,78 @@ package fr.ecp.IS1220.FinalProject.Vasselin.core.test;
 
 import static org.junit.Assert.*;
 
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.util.Random;
 
 import org.junit.Test;
 
+import fr.ecp.IS1220.FinalProject.Vasselin.core.NameConflictException;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.NotAVFSException;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VDirectory;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VFS;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
 
 public class VFSTest {
+	
+	/**
+	 * This is only used in the tests.
+	 * @return a small randomly-generated VDirectory composed of 5 files and another VDIrectory, itself
+	 * composed of 5 files.
+	 */
+	protected VDirectory generateRandomVDirectory() {
+		byte[] data;
+		Random r = new Random();
+		VDirectory tested = new VDirectory("thisIsGreat");
+		for(int i=0;i<5;i++){
+			int increment = Math.abs(r.nextInt())%50;
+			data = new byte[increment];
+			try{tested.add(new VFile("whatever"+i, data));}catch(NameConflictException e){}
+		}
 
-	@Test
-	public void testGetRoot() {
-		fail("Not yet implemented");
+		VDirectory subdir = new VDirectory();
+		for(int i=0;i<5;i++){
+			int increment = Math.abs(r.nextInt())%50;
+			data = new byte[increment];
+			try{subdir.add(new VFile("whatever"+(i+5), data));}catch(NameConflictException e){}
+		}
+
+		try{tested.add(subdir);}catch(NameConflictException e){}
+		return tested;
 	}
 
 	@Test
-	public void testGetMaxSpace() {
-		fail("Not yet implemented");
+	public void testGetMaxSpace() throws IOException{
+		VFS vfs = new VFS(1564, FileSystems.getDefault().getPath("myVFS3.vfs"));
+		assertEquals(1564, vfs.getMaxSpace());
 	}
 
 	@Test
-	public void testGetFreeSpace() {
-		fail("Not yet implemented");
+	public void testGetFreeSpace() throws IOException, NameConflictException{
+		VFS vfs = new VFS(1564, FileSystems.getDefault().getPath("myVFS4.vfs"));
+		byte[] fakeData = new byte[564];
+		VFile file = new VFile("Poney.trol", fakeData);
+		vfs.getRoot().add(file);
+		assertEquals(1000, vfs.getFreeSpace());
+	}
+	
+	@Test
+	public void testGetActualFile() throws IOException{
+		VFS vfs = new VFS(1564, FileSystems.getDefault().getPath("myVFS5.vfs"));
+		File f = new File("myVFS5.vfs");
+		assertEquals(f, vfs.getActualFile());
+	}
+	
+	@Test
+	public void testSetActualFile() throws IOException{
+		VFS vfs = new VFS(1564, FileSystems.getDefault().getPath("myVFS6.vfs"));
+		File f = new File("myVFS7.vfs");
+		vfs.setActualFile(f);
+		assertEquals(f, vfs.getActualFile());
 	}
 
 	@Test
@@ -43,15 +93,49 @@ public class VFSTest {
 //		assertTrue(new File("testsVFS_Constructor\\myVFS1.vfs").exists());
 		
 		//Does work
-		new VFS(30, "myVFS1.vfs");
+		Path filePath = FileSystems.getDefault().getPath("myVFS1.vfs");
+		new VFS(30, filePath);
 		assertTrue(new File("myVFS1.vfs").exists());
 		File f = new File("myVFS1.vfs");
 		assertEquals(30,f.length());
 	}
 	
 	@Test
-	public void testSaveLoad() {
-		fail("Not yet implemented");
+	public void testSaveLoad() throws NameConflictException, IOException, NotAVFSException{
+		//generating a VDirectory.
+		VDirectory tested = generateRandomVDirectory();
+		
+		//generating a VFS
+		VFS vfs = new VFS(1000, FileSystems.getDefault().getPath("myVFS2.vfs"));
+		vfs.getRoot().add(tested);
+		
+		//save
+		vfs.save();
+		
+		//load
+		VFS vfs2 = VFS.load("myVFS2.vfs");
+		//Note that I SHOULD NOT be doing that, i.e opening two VFS instances targeting the same file.
+		
+		assertTrue(VItemFactoryTest.alike(vfs.getRoot(), vfs2.getRoot()));
+	}
+	
+	@Test(expected = NotAVFSException.class)
+	public void testLoadThrowsNotAVFSException() throws IOException, NotAVFSException{
+		File f = new File("trol.lol");
+		FileOutputStream out1 = new FileOutputStream(f);
+		DataOutputStream out = new DataOutputStream(out1);
+		
+		Random r = new Random();
+		byte[] fakeData = new byte[55];
+		r.nextBytes(fakeData);
+		out.write(fakeData);
+		
+		out.close();
+		out1.close();
+		
+		VFS vfs = VFS.load(f.getPath());
+		
+		fail("No exception was thrown.");
 	}
 	
 }

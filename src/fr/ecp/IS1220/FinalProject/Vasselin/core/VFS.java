@@ -9,7 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
 public class VFS implements Serializable {
@@ -20,17 +19,34 @@ public class VFS implements Serializable {
 	//----------Attributes------------
 	private VDirectory root;
 	private long maxSpace;
-	private File actualFilePath;
+	private File actualFile;
 
 	//----------Getters---------------
+	/**
+	 * @return the root VDIrectory, containing all the elements of the VFS.
+	 */
 	public VDirectory getRoot() {
 		return root;
 	}
+	/**
+	 * @return the maximum authorised total size of the data stored in this VFS, in bytes.
+	 * IMPORTANT NOTE : the actual size of the .vfs file in the host file system *may* be larger than
+	 * this, as it includes the data structure and not only the sum of the sizes of the files.
+	 */
 	public long getMaxSpace() {
 		return maxSpace;
 	}
-	public File getActualFilePath() {
-		return actualFilePath;
+	/**
+	 * @return the file where the .vfs file corresponding to this is stored (in the hosting file system)
+	 */
+	public File getActualFile() {
+		return actualFile;
+	}
+	/**
+	 * @param actualFile : the new file in the hosting file system where the .vfs file will be stored when save() is called.
+	 */
+	public void setActualFile(File actualFile) {
+		this.actualFile = actualFile;
 	}
 	/**
 	 * @return getFreeSpace COMPUTES the free space of this VFS.
@@ -42,6 +58,7 @@ public class VFS implements Serializable {
 	//----------Constructors----------
 	/**
 	 * @param maxSpace : the maximum storage space of the VFS, i.e the size of the VFS file on the host file system.
+	 * @param path : the path pointing to the future emplacement of the .vfs file (including the name.vfs)
 	 * 
 	 * This constructor creates a new VFS in the concrete file system with the specified maxSpace size, and initialize it.
 	 * The initialisation process implies :
@@ -49,28 +66,28 @@ public class VFS implements Serializable {
 	 *     - creation of the root VDirectory
 	 * @throws if the file location given by path cannot be written, an IOException will be thrown.
 	 */
-	public VFS(long maxSpace, String path) throws IOException{
+	public VFS(long maxSpace, Path path) throws IOException{
 		this.root = new VDirectory(); 
 		this.maxSpace = maxSpace;
 
-		//Generating the path to create the vfs, function of the OS.
-		Path filePath = FileSystems.getDefault().getPath(path);
 		//Writing the vfs in a file calling the generate method.
-		this.generate(filePath); 
-		actualFilePath = filePath.toFile();
+		this.generate(path); 
+		actualFile = path.toFile();
 	}
 
 	//----------Saving functionalities
 
 	/**
 	 * Saves the content of this VFS to the hard-drive.
+	 * The length of the actual .vfs file in the hosting file system may be larger than getMaxSpace(),
+	 * because of the space taken by the data structure.
 	 * @throws IOException may be thrown if the location getActualFilePath() can no longer be written.
 	 */
 	public void save() throws IOException{
-		OutputStream out1 = new FileOutputStream(getActualFilePath());
+		OutputStream out1 = new FileOutputStream(getActualFile());
 		ObjectOutputStream out = new ObjectOutputStream(out1);
 		
-		out.writeObject(getRoot());
+		out.writeObject(this);
 		
 		out.close();
 		out1.close();
@@ -97,6 +114,7 @@ public class VFS implements Serializable {
 			in.close();
 			in1.close();
 		}
+		res.setActualFile(target);
 		return res;
 	}
 
