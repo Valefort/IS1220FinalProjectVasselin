@@ -156,6 +156,7 @@ public class VDirectory implements VItem, Serializable {
 	}
 	
 	//for debugging purposes only...
+	//used in VItemFactoryTest
 	public void print(int l){
 		String alinea = new String();
 		for(int i=0;i<l;i++)
