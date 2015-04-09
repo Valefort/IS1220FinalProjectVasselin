@@ -4,22 +4,32 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import fr.ecp.IS1220.FinalProject.Vasselin.core.NameConflictException;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VDirectory;
-import fr.ecp.IS1220.FinalProject.Vasselin.core.VFS;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VItem;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VItemFactory;
 
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Random;
 
 public class VItemFactoryTest {
 
-	//Used in VDirectoryTest.
-	//Ensure that two VItem are the same.
+
+	/**
+	 * This is used only in the tests.
+	 * It compares two VItem and returns true if they have the same content.
+	 * @param a : a VItem
+	 * @param b : another VItem
+	 * @return true if a and b have the same content, false otherwise.
+	 */
 	protected static boolean alike(VItem a, VItem b){
 		if(a instanceof VDirectory){
 			if(b instanceof VDirectory){//on est du même type...
@@ -70,15 +80,13 @@ public class VItemFactoryTest {
 		}
 	}
 
-	/*
-	 * Des tests sur la création et l'édition de fichiers et dossiers ainsi que 
-	 * la gestion des chemins sont à réaliser afin de débugguer tout ça...
-	 * 
+	/**
+	 * This is used only in the test.
+	 * @param file : a file in the host file system
+	 * @param vfile : a VFile
+	 * @return true if file and vfile have the same name and content.
 	 */
-
-	//il faudra mettre du contenu dans les fichiers
-
-	private Boolean checkFileImported(File file,VFile vfile) throws IOException {
+	private static Boolean checkFileImported(File file,VFile vfile) throws IOException {
 		if(!file.getName().equals(vfile.getName())){
 			System.out.println("Filenames mismatch.");
 			return false;
@@ -101,148 +109,56 @@ public class VItemFactoryTest {
 		return true;
 	}
 
-	
-	
-@Test
-/**
- *This test has to ensure that the imported store the good data. It does not
- *need the export function.
- * This excepted, one have to test the recursive importation of folders, 
- * with conservation of the tree structure.
- *  
- *  /!\ Does only support windows path notations for the moment
- */
-public void testimportVItem() throws IOException{
 
-	//Creation of the folder to be imported
 
-	//To be implemented. Actually using the TestFolder
+	@Test
+	public void testimportVItem() throws Exception{
+		
+		Random r = new Random();
 
-	//Importation of the folder in a new VDirectory
-
-	Path path = FileSystems.getDefault().getPath("C:\\Users\\Malo MARREC\\Documents\\Boulot\\Progra\\Environnement\\Final Project Vasselin\\TestFolder\\Test_VItemFactoryTest_1\\Folder1");
-
-	try{
-		VDirectory rootDir = (VDirectory)VItemFactory.importVItem(path);
-		rootDir.print(0);
-		//Check the integrity of the imported file by comparison between the 
-		// original file and the imported then exported file.
-
-		File dirContainer = new File("dirContainer"); // creating a new directory
-		if(!dirContainer.exists()){
-			try{
-				dirContainer.mkdir();
-			}catch(SecurityException e){
-				fail("Folder dirContainer already exists.");
-			}
-		}
-
-		//The directory is exported in a new directory
-		try{
-			rootDir.exportVItem(dirContainer.toPath());
-
-		}catch(Exception e){fail("Exception thrown...");}
-
-	}catch(Exception e){fail("Exception thrown...");}
+		//generation of a content to be loaded.
+		File testFolder = new File("importVItemTest");
+		testFolder.mkdir();
+		if(!testFolder.exists())
+			fail("Impossible to create the test directory.");
+		
+		File f1 = new File("importVItemTest/file1.txt");
+		byte[] f1data = new byte[80];
+		r.nextBytes(f1data);
+		FileOutputStream stream1 = new FileOutputStream(f1);
+		DataOutputStream out1 = new DataOutputStream(stream1);
+		out1.write(f1data);
+		out1.close();
+		stream1.close();
+		
+		File lilfolder = new File("importVItemTest/lilfolder");
+		lilfolder.mkdir();
+		if(!lilfolder.exists())
+			fail("Impossible to create the lilfolder directory.");
+		
+		File f2 = new File("importVItemTest/lilfolder/file2.txt");
+		byte[] f2data = new byte[80];
+		r.nextBytes(f2data);
+		FileOutputStream stream2 = new FileOutputStream(f2);
+		DataOutputStream out2 = new DataOutputStream(stream2);
+		out2.write(f2data);
+		out2.close();
+		stream2.close();
+		
+		//Testing the import
+		VItem test = VItemFactory.importVItem(Paths.get("importVItemTest"));
+		
+		assertEquals(160,test.getSize());
+		assertEquals(2, test.getSuccessors().size());
+		
+		assertTrue(((VDirectory)test).getDirectories().get(0).getName().equals("lilfolder"));
+		assertTrue(checkFileImported(f1,((VDirectory)test).getFiles().get(0)));
+		VDirectory lilfolderTest = (VDirectory)test.getSuccessors().get(0);
+		
+		assertEquals(1,lilfolderTest.getSuccessors().size());
+		assertTrue(checkFileImported(f2,lilfolderTest.getFiles().get(0)));
+	}
 
 }
 
-}
-//		Boolean bool1, bool2; //The test succeed if bool1 && bool2
-//		bool1 = new Boolean(false);
-//		bool2 = new Boolean(false);
-//
-//		VFS myVFS = new VFS(100000000, "myVFS.vfs"); //creating a new VFS
-//
-//		File myFile = new File("myFile.file"); // creating a new file
-//
-//		/*
-//		 * This first test check the most basic importation of a file.
-//		 * Integrity checking remains to be implemented.
-//		 */
-//		try{
-//			VItem vitem1 = VItemFactory.importVItem(myFile.toPath()); //loading the file in a VItem
-//			myVFS.getRoot().add(vitem1); //add the file in the root directory
-//			bool1 = myVFS.getRoot().contains(vitem1) && vitem1 !=null;
-//		}catch(Exception e){fail("File too large or io exception raised.");}
-//
-//		File dir1 = new File("dir1"); // creating a new directory
-//		if(!dir1.exists()){
-//			try{
-//				dir1.mkdir();
-//			}catch(SecurityException e){
-//				fail("Folder dir1 already exists.");
-//			}
-//		}
-//
-//		//adding files and directory in the directory
-//		/*
-//		 * dir1
-//		 * |-> file1.file
-//		 * |-> file2.file
-//		 * |-> dir2
-//		 * 		|-> file3.file
-//		 */
-//		File file1 = new File("dir1\\file1.file");
-//		File file2 = new File("dir1\\file2.file");
-//		File dir2 = new File("dir1\\dir2");
-//		if(!dir2.exists()){
-//			try{
-//				dir2.mkdir();
-//			}catch(SecurityException e){
-//				fail("Folder dir2 already exists.");
-//			}
-//		}
-//		File file3 = new File("dir1\\dir2\\file3.file");
-//
-//		try{
-//			VItem dir1Imported = VItemFactory.importVItem(dir1.toPath());
-//			myVFS.getRoot().add(dir1Imported);
-//
-//			bool2 = checkFileImported(file1, myVFS.getRoot().getDirectories().get(0).getFiles().get(0)); //check if file1 is correctly imported
-//			bool2 = bool2 && checkFileImported(file2, myVFS.getRoot().getDirectories().get(0).getFiles().get(1)); //check if file2 is correctly imported
-//			bool2 = bool2 && checkFileImported(file3, myVFS.getRoot().getDirectories().get(0).getDirectories().get(0).getFiles().get(0)); //check if file3 is correctly imported
-//
-//
-//		}catch(Exception e){fail("File too large or io exception raised.");}
-//
-//		assertTrue(bool1 && bool2);
-//		File theDir = new File("new folder");
-//
-//		// if the directory does not exist, create it
-//		if (!theDir.exists()) {
-//		    System.out.println("creating directory: " + directoryName);
-//		    boolean result = false;
-//
-//		    try{
-//		        theDir.mkdir();
-//		        result = true;
-//		    } 
-//		    catch(SecurityException se){
-//		        //handle it
-//		    }        
-//		    if(result) {    
-//		        System.out.println("DIR created");  
-//		    }
-//		}
-
-
-
-//		Path path = file.getPath();
-//		File f = new File(path.toString());
-//		if(myFile.isFile()){
-//			byte[] data=null;
-//			try{data=new byte[(int)myFile.length()];}
-//			catch(ClassCastException e){throw new FileTooLargeException();}
-//			InputStream in1 = new FileInputStream(myFile);
-//			DataInputStream in = new DataInputStream(in1);
-//			in.read(data);
-//			in.close();
-//			in1.close();
-//			return new VFile(myFile.getName(),data);
-//		}else{//here, f is a directory
-//			VItem res = new VDirectory(myFile.getName());
-//			for(String s : myFile.list()){
-//				res.add(importVItem(Paths.get(s)));
-//			}
 
