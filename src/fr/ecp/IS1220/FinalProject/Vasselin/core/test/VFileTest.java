@@ -2,11 +2,18 @@ package fr.ecp.IS1220.FinalProject.Vasselin.core.test;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Random;
 
 import org.junit.Test;
 
+import fr.ecp.IS1220.FinalProject.Vasselin.core.FileTooLargeException;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.NameConflictException;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.VItemFactory;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VItemNotFoundException;
 
 public class VFileTest {
@@ -125,8 +132,22 @@ public class VFileTest {
 	}
 	
 	@Test
-	public void testExportVItem() {
-		fail("Not yet implemented");
+	public void testExportVItem() throws Exception{
+		byte[] data = new byte[54];
+		Random r = new Random();
+		r.nextBytes(data);
+		VFile testEx = new VFile("lovelyExportedFile.txt", data);
+		
+		testEx.exportVItem(Paths.get("."));
+		
+		VFile testIm = (VFile)VItemFactory.importVItem(Paths.get("lovelyExportedFile.txt"));
+		
+		assertEquals(54, testIm.getData().length);
+		
+		for(int i=0;i<54;i++){
+			if(data[i]!=testIm.getData()[i])
+				fail("Data inequality at index "+i);
+		}
 	}
 
 }

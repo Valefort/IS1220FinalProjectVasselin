@@ -264,15 +264,12 @@ public class VDirectoryTest {
 		//tested.print(0);
 
 		//exporting it
-		URL location = VDirectoryTest.class.getProtectionDomain().getCodeSource().getLocation();
-		try{tested.exportVItem(Paths.get(location.toURI()));}
-		catch(URISyntaxException e){fail("URI syntax exception raised... whatever that means");}
+		tested.exportVItem(Paths.get("."));
 		//reimporting it
 		VDirectory testResult=null;
 
 		try{
-			String target = Paths.get(location.toURI()).toString();
-			testResult = (VDirectory)VItemFactory.importVItem(Paths.get(target,"thisIsGreat"));}
+			testResult = (VDirectory)VItemFactory.importVItem(Paths.get("thisIsGreat"));}
 		catch(Exception e){fail("Exception was raised : "+e.toString());}
 		//testResult.print(0);
 
