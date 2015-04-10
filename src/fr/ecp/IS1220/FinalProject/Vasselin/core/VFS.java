@@ -10,8 +10,8 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 import java.util.StringTokenizer;
@@ -34,9 +34,9 @@ public class VFS implements Serializable {
 		return root;
 	}
 	/**
-	 * @return the maximum authorised total size of the data stored in this VFS, in bytes.
-	 * IMPORTANT NOTE : the actual size of the .vfs file in the host file system *may* be larger than
-	 * this, as it includes the data structure and not only the sum of the sizes of the files.
+	 * @return the maximum authorised total size of the .vfs file in the host file system, in bytes.
+	 * Note that due to the storage of the data structure, the total amount of actual data stored in
+	 * this VFS is smaller than getMaxSpace().
 	 */
 	public long getMaxSpace() {
 		return maxSpace;
@@ -87,8 +87,9 @@ public class VFS implements Serializable {
 	 * The length of the actual .vfs file in the hosting file system may be larger than getMaxSpace(),
 	 * because of the space taken by the data structure.
 	 * @throws IOException may be thrown if the location getActualFilePath() can no longer be written.
+	 * @throws MaxSizeExceededException is thrown if the current size of the VFS is larger than getMaxSize().
 	 */
-	public void save() throws IOException{
+	public void save() throws IOException, MaxSizeExceededException{
 		OutputStream out1 = new FileOutputStream(getActualFile());
 		ObjectOutputStream out = new ObjectOutputStream(out1);
 
@@ -96,6 +97,13 @@ public class VFS implements Serializable {
 
 		out.close();
 		out1.close();
+
+		if(this.getActualFile().length()>getMaxSpace()){
+			this.getActualFile().delete();
+			generate(getActualFile().toPath());
+
+			throw new MaxSizeExceededException();
+		}
 	}
 
 	/**
@@ -105,9 +113,9 @@ public class VFS implements Serializable {
 	 * @throws IOException if the path is invalid or the location can't be read.
 	 * @throws NotAVFSException if path doesn't point to a VFS.
 	 */
-	public static VFS load(String path) throws IOException, NotAVFSException{
-		File target = new File(path);
-		if(!path.endsWith(".vfs"))
+	public static VFS load(Path path) throws IOException, NotAVFSException{
+		File target = path.toFile();
+		if(!path.toString().endsWith(".vfs"))
 			throw new NotAVFSException();
 		InputStream in1 = new FileInputStream(target);
 		ObjectInputStream in = new ObjectInputStream(in1);
@@ -160,7 +168,7 @@ public class VFS implements Serializable {
 		}
 		return current;
 	}
-	
+
 	/**
 	 * Finds all the VItems named name, using a simple breadth-first search.
 	 * @param name : the name of the researched items

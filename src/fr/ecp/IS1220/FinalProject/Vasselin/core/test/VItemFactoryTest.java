@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import fr.ecp.IS1220.FinalProject.Vasselin.core.NameConflictException;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VDirectory;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VItem;
@@ -14,9 +13,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Random;
 

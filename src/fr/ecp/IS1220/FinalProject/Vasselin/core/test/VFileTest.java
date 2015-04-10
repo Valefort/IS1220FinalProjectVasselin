@@ -2,16 +2,11 @@ package fr.ecp.IS1220.FinalProject.Vasselin.core.test;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Random;
 
 import org.junit.Test;
 
-import fr.ecp.IS1220.FinalProject.Vasselin.core.FileTooLargeException;
-import fr.ecp.IS1220.FinalProject.Vasselin.core.NameConflictException;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VItemFactory;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VItemNotFoundException;

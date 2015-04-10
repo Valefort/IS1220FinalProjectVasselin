@@ -10,7 +10,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Random;
-import java.util.StringTokenizer;
 
 import org.junit.Test;
 
@@ -104,19 +103,18 @@ public class VFSTest {
 	}
 	
 	@Test
-	public void testSaveLoad() throws NameConflictException, IOException, NotAVFSException{
+	public void testSaveLoad() throws Exception{
 		//generating a VDirectory.
 		VDirectory tested = generateRandomVDirectory();
-		
 		//generating a VFS
-		VFS vfs = new VFS(1000, FileSystems.getDefault().getPath("myVFS2.vfs"));
+		VFS vfs = new VFS(2000, FileSystems.getDefault().getPath("myVFS2.vfs"));
 		vfs.getRoot().add(tested);
 		
 		//save
 		vfs.save();
 		
 		//load
-		VFS vfs2 = VFS.load("myVFS2.vfs");
+		VFS vfs2 = VFS.load(Paths.get("myVFS2.vfs"));
 		//Note that I SHOULD NOT be doing that, i.e opening two VFS instances targeting the same file.
 		
 		assertTrue(VItemFactoryTest.alike(vfs.getRoot(), vfs2.getRoot()));
@@ -136,7 +134,8 @@ public class VFSTest {
 		out.close();
 		out1.close();
 		
-		VFS vfs = VFS.load(f.getPath());
+		@SuppressWarnings("unused")
+		VFS vfs = VFS.load(Paths.get(f.getPath()));
 		
 		fail("No exception was thrown.");
 	}
