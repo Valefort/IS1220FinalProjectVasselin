@@ -3,4 +3,8 @@
   <packageImport xmi:type="uml:PackageImport" xmi:id="_BATg8dz-EeS7s7yYHY6OLQ">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_XVDaMN8TEeSN4d_-HObC9g" name="VItem">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_BFKbIN8UEeSN4d_-HObC9g" name="Operation1"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_KDQ-kN8UEeSN4d_-HObC9g" name="Operation2"/>
+  </packagedElement>
 </uml:Model>
