@@ -37,7 +37,7 @@
       </ownedParameter>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_YWhOsN9JEeSD79dXH9UFPw" name="VIttemFactory">
+  <packagedElement xmi:type="uml:Class" xmi:id="_YWhOsN9JEeSD79dXH9UFPw" name="VItemFactory">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_MD9eoN9OEeSD79dXH9UFPw" name="vItem" type="_XVDaMN8TEeSN4d_-HObC9g" association="_MD9eo99OEeSD79dXH9UFPw">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MD9eod9OEeSD79dXH9UFPw" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MD9eot9OEeSD79dXH9UFPw" value="1"/>
@@ -93,6 +93,17 @@
     </ownedOperation>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_BV1r4N9KEeSD79dXH9UFPw" name="generate">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="__28U4N9dEeSUQZ18TVMbww" name="filePath"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_uHnDMN-bEeSRpqKIL7dScQ" name="search">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_BT21oN-cEeSRpqKIL7dScQ" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_vlCDcN-bEeSRpqKIL7dScQ" name="getPath">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_8uQjgN-bEeSRpqKIL7dScQ" name="path">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_-lJMoN-bEeSRpqKIL7dScQ" type="_XVDaMN8TEeSN4d_-HObC9g" direction="return"/>
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_Q3fb4N9KEeSD79dXH9UFPw" name="VFile">
