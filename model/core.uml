@@ -37,7 +37,7 @@
       </ownedParameter>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_YWhOsN9JEeSD79dXH9UFPw" name="VIttemFactory">
+  <packagedElement xmi:type="uml:Class" xmi:id="_YWhOsN9JEeSD79dXH9UFPw" name="VItemFactory">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_MD9eoN9OEeSD79dXH9UFPw" name="vItem" type="_XVDaMN8TEeSN4d_-HObC9g" association="_MD9eo99OEeSD79dXH9UFPw">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MD9eod9OEeSD79dXH9UFPw" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MD9eot9OEeSD79dXH9UFPw" value="1"/>
