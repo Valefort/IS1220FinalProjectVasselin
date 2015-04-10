@@ -94,6 +94,17 @@
     <ownedOperation xmi:type="uml:Operation" xmi:id="_BV1r4N9KEeSD79dXH9UFPw" name="generate">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="__28U4N9dEeSUQZ18TVMbww" name="filePath"/>
     </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_uHnDMN-bEeSRpqKIL7dScQ" name="search">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_BT21oN-cEeSRpqKIL7dScQ" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_vlCDcN-bEeSRpqKIL7dScQ" name="getPath">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_8uQjgN-bEeSRpqKIL7dScQ" name="path">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_-lJMoN-bEeSRpqKIL7dScQ" type="_XVDaMN8TEeSN4d_-HObC9g" direction="return"/>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_Q3fb4N9KEeSD79dXH9UFPw" name="VFile">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_XkqPwN9QEeSGZPC8jwcfRQ" name="serialVersionUID" visibility="private" isStatic="true" isReadOnly="true">
