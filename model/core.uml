@@ -21,7 +21,6 @@
     <ownedOperation xmi:type="uml:Operation" xmi:id="_a-U-cN9JEeSD79dXH9UFPw" name="importVItem"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_fIobsN9JEeSD79dXH9UFPw" name="VFS">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_avJ10N9QEeSGZPC8jwcfRQ" name="serialVersionUID"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_qGP7oN9QEeSGZPC8jwcfRQ" name="root"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_rDiqUN9QEeSGZPC8jwcfRQ" name="maxSpace"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_tjBkgN9QEeSGZPC8jwcfRQ" name="actualFile"/>
@@ -32,6 +31,9 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_-iv_kN9REeSGZPC8jwcfRQ" name="vDirectory" type="_vDBmYN9KEeSD79dXH9UFPw" association="_-iv_k99REeSGZPC8jwcfRQ">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-iv_kd9REeSGZPC8jwcfRQ" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-iv_kt9REeSGZPC8jwcfRQ" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_bkwEQN9UEeSGZPC8jwcfRQ" name="serialVersionUID" visibility="private" isStatic="true" isReadOnly="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
     </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_gZuQIN9JEeSD79dXH9UFPw" name="getRoot"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_tZNlYN9JEeSD79dXH9UFPw" name="getMaxSpace"/>
@@ -44,7 +46,9 @@
     <ownedOperation xmi:type="uml:Operation" xmi:id="_BV1r4N9KEeSD79dXH9UFPw" name="generate"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_Q3fb4N9KEeSD79dXH9UFPw" name="VFile">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_XkqPwN9QEeSGZPC8jwcfRQ" name="serialVersionUID" visibility="private" isStatic="true"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_XkqPwN9QEeSGZPC8jwcfRQ" name="serialVersionUID" visibility="private" isStatic="true" isReadOnly="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+    </ownedAttribute>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_9UTr8N9QEeSGZPC8jwcfRQ" name="name"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_-OLTMN9QEeSGZPC8jwcfRQ" name="data"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_ZOotAN9KEeSD79dXH9UFPw" name="VFile"/>
@@ -62,10 +66,12 @@
     <ownedOperation xmi:type="uml:Operation" xmi:id="_r6xcAN9KEeSD79dXH9UFPw" name="exportVItem"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_vDBmYN9KEeSD79dXH9UFPw" name="VDirectory">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_ZGkHYN9QEeSGZPC8jwcfRQ" name="serialVersionUID"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_AxYPwN9REeSGZPC8jwcfRQ" name="directories"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_CRfXoN9REeSGZPC8jwcfRQ" name="files"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_Do0W8N9REeSGZPC8jwcfRQ" name="name"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_ZtFYAN9UEeSGZPC8jwcfRQ" name="serialVersionUID" visibility="private" isStatic="true" isReadOnly="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+    </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_3OjdYN9KEeSD79dXH9UFPw" name="VDirectory"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_4EtpUN9KEeSD79dXH9UFPw" name="VDirectory"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_5lHFEN9KEeSD79dXH9UFPw" name="VDirectory"/>
