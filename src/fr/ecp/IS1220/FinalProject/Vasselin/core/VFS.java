@@ -10,6 +10,11 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
+import java.util.StringTokenizer;
 
 public class VFS implements Serializable {
 	/**
@@ -67,7 +72,7 @@ public class VFS implements Serializable {
 	 * @throws if the file location given by path cannot be written, an IOException will be thrown.
 	 */
 	public VFS(long maxSpace, Path path) throws IOException{
-		this.root = new VDirectory(); 
+		this.root = new VDirectory("root"); 
 		this.maxSpace = maxSpace;
 
 		//Writing the vfs in a file calling the generate method.
@@ -86,13 +91,13 @@ public class VFS implements Serializable {
 	public void save() throws IOException{
 		OutputStream out1 = new FileOutputStream(getActualFile());
 		ObjectOutputStream out = new ObjectOutputStream(out1);
-		
+
 		out.writeObject(this);
-		
+
 		out.close();
 		out1.close();
 	}
-	
+
 	/**
 	 * Creates a VFS from a .vfs file in the host file system.
 	 * @param path : must point to the .vfs file (including the ".vfs")
@@ -106,7 +111,7 @@ public class VFS implements Serializable {
 			throw new NotAVFSException();
 		InputStream in1 = new FileInputStream(target);
 		ObjectInputStream in = new ObjectInputStream(in1);
-		
+
 		VFS res=null;
 		try{res = (VFS)in.readObject();}
 		catch(ClassNotFoundException e){throw new NotAVFSException();}
@@ -115,6 +120,65 @@ public class VFS implements Serializable {
 			in1.close();
 		}
 		res.setActualFile(target);
+		return res;
+	}
+
+	/**
+	 * Deletes the .vfs file in the host file system.
+	 * @throws SecurityException is thrown if the .vfs file is no longer accessible.
+	 */
+	public void delete() throws SecurityException{
+		actualFile.delete();
+	}
+
+	//Paths and searches
+
+	/**
+	 * Returns the VItem at the location designated by path in the VFS.
+	 * @param path : the path to the wanted file/directory in the VFS. The directories should be separated by "/".
+	 * The "root/" at the beginning of the path may be omitted.
+	 * @return the VItem which path points to
+	 * @throws InvalidPathException is thrown if path doesn't point to any existing file.
+	 */
+	public VItem getPath(String path) throws InvalidPathException{
+		VItem current = getRoot();
+		if(path.startsWith("root/"))
+			path=path.substring(5);
+		StringTokenizer tk = new StringTokenizer(path, "/");
+		while(tk.hasMoreTokens()){
+			boolean found=false;
+			String name = tk.nextToken();
+			for(VItem i : current.getSuccessors()){
+				if(name.equals(i.getName())){
+					found=true;
+					current=i;
+					break;
+				}
+			}
+			if(!found)
+				throw new InvalidPathException();
+		}
+		return current;
+	}
+	
+	/**
+	 * Finds all the VItems named name, using a simple breadth-first search.
+	 * @param name : the name of the researched items
+	 * @return a List of VItem, containing all the items of the VFS with the name "name"
+	 */
+	public List<VItem> search(String name){
+		Stack<VItem> Q = new Stack<VItem>();
+		Q.add(getRoot());
+		VItem current=null;
+		List<VItem> res = new ArrayList<VItem>();
+		while(!Q.isEmpty()){
+			current=Q.pop();
+			for(VItem i : current.getSuccessors()){
+				if(i.getName().equals(name))
+					res.add(i);
+				Q.add(i);
+			}
+		}
 		return res;
 	}
 

@@ -8,10 +8,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import org.junit.Test;
 
+import fr.ecp.IS1220.FinalProject.Vasselin.core.InvalidPathException;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.NameConflictException;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.NotAVFSException;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VDirectory;
@@ -138,4 +141,33 @@ public class VFSTest {
 		fail("No exception was thrown.");
 	}
 	
+	@Test
+	public void testDelete() throws IOException{
+		VFS vfs = new VFS(50,Paths.get("myVFS8.vfs"));
+		File f = new File("myVFS8.vfs");
+		assertTrue(f.exists());
+		vfs.delete();
+		assertTrue(!f.exists());
+	}
+	
+	@Test
+	public void testGetPathWorks() throws Exception{
+		VFS vfs = new VFS(1000, Paths.get("myVFS9.vfs"));
+		vfs.getRoot().add(generateRandomVDirectory());
+		assertEquals("whatever3",vfs.getPath("root/thisIsGreat/whatever3").getName());
+	}
+	
+	@Test(expected = InvalidPathException.class)
+	public void testGetPathThrowException() throws InvalidPathException, IOException{
+		VFS vfs = new VFS(1000, Paths.get("myVFS10.vfs"));
+		vfs.getPath("root/Hell/YourWorstNightmare.troll");
+		fail("No exception was thrown.");
+	}
+	
+	@Test
+	public void testSearch() throws Exception{
+		VFS vfs = new VFS(1000, Paths.get("myVFS11.vfs"));
+		vfs.getRoot().add(generateRandomVDirectory());
+		assertEquals("whatever5", vfs.search("whatever5").get(0).getName());
+	}
 }
