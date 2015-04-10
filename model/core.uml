@@ -14,9 +14,25 @@
     <ownedOperation xmi:type="uml:Operation" xmi:id="_ATTtUN9JEeSD79dXH9UFPw" name="exportVItem"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_YWhOsN9JEeSD79dXH9UFPw" name="VIttemFactory">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_MD9eoN9OEeSD79dXH9UFPw" name="vItem" type="_XVDaMN8TEeSN4d_-HObC9g" association="_MD9eo99OEeSD79dXH9UFPw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MD9eod9OEeSD79dXH9UFPw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MD9eot9OEeSD79dXH9UFPw" value="1"/>
+    </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_a-U-cN9JEeSD79dXH9UFPw" name="importVItem"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_fIobsN9JEeSD79dXH9UFPw" name="VFS">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_avJ10N9QEeSGZPC8jwcfRQ" name="serialVersionUID"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_qGP7oN9QEeSGZPC8jwcfRQ" name="root"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_rDiqUN9QEeSGZPC8jwcfRQ" name="maxSpace"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_tjBkgN9QEeSGZPC8jwcfRQ" name="actualFile"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_o21swN9REeSGZPC8jwcfRQ" name="vFile" type="_Q3fb4N9KEeSD79dXH9UFPw" association="_o21sw99REeSGZPC8jwcfRQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_o21swd9REeSGZPC8jwcfRQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_o21swt9REeSGZPC8jwcfRQ" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_-iv_kN9REeSGZPC8jwcfRQ" name="vDirectory" type="_vDBmYN9KEeSD79dXH9UFPw" association="_-iv_k99REeSGZPC8jwcfRQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-iv_kd9REeSGZPC8jwcfRQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-iv_kt9REeSGZPC8jwcfRQ" value="*"/>
+    </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_gZuQIN9JEeSD79dXH9UFPw" name="getRoot"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_tZNlYN9JEeSD79dXH9UFPw" name="getMaxSpace"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_2SIG0N9JEeSD79dXH9UFPw" name="getActualFile"/>
@@ -28,6 +44,9 @@
     <ownedOperation xmi:type="uml:Operation" xmi:id="_BV1r4N9KEeSD79dXH9UFPw" name="generate"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_Q3fb4N9KEeSD79dXH9UFPw" name="VFile">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_XkqPwN9QEeSGZPC8jwcfRQ" name="serialVersionUID" visibility="private" isStatic="true"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_9UTr8N9QEeSGZPC8jwcfRQ" name="name"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_-OLTMN9QEeSGZPC8jwcfRQ" name="data"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_ZOotAN9KEeSD79dXH9UFPw" name="VFile"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_aAnjkN9KEeSD79dXH9UFPw" name="VFile"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_bDkOUN9KEeSD79dXH9UFPw" name="VFile"/>
@@ -43,6 +62,10 @@
     <ownedOperation xmi:type="uml:Operation" xmi:id="_r6xcAN9KEeSD79dXH9UFPw" name="exportVItem"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_vDBmYN9KEeSD79dXH9UFPw" name="VDirectory">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_ZGkHYN9QEeSGZPC8jwcfRQ" name="serialVersionUID"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_AxYPwN9REeSGZPC8jwcfRQ" name="directories"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_CRfXoN9REeSGZPC8jwcfRQ" name="files"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_Do0W8N9REeSGZPC8jwcfRQ" name="name"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_3OjdYN9KEeSD79dXH9UFPw" name="VDirectory"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_4EtpUN9KEeSD79dXH9UFPw" name="VDirectory"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_5lHFEN9KEeSD79dXH9UFPw" name="VDirectory"/>
@@ -58,5 +81,25 @@
     <ownedOperation xmi:type="uml:Operation" xmi:id="_PFHp4d9LEeSD79dXH9UFPw" name="getName"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_PFHp4t9LEeSD79dXH9UFPw" name="setName"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_PFHp499LEeSD79dXH9UFPw" name="exportVItem"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Realization" xmi:id="_phmTQN9MEeSD79dXH9UFPw" client="_Q3fb4N9KEeSD79dXH9UFPw" supplier="_XVDaMN8TEeSN4d_-HObC9g"/>
+  <packagedElement xmi:type="uml:Realization" xmi:id="_qo22QN9MEeSD79dXH9UFPw" client="_vDBmYN9KEeSD79dXH9UFPw" supplier="_XVDaMN8TEeSN4d_-HObC9g"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_MD9eo99OEeSD79dXH9UFPw" name="creation" memberEnd="_MD9epN9OEeSD79dXH9UFPw _MD9eoN9OEeSD79dXH9UFPw">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_MD9epN9OEeSD79dXH9UFPw" name="vIttemFactory" type="_YWhOsN9JEeSD79dXH9UFPw" association="_MD9eo99OEeSD79dXH9UFPw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MD9epd9OEeSD79dXH9UFPw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MD9ept9OEeSD79dXH9UFPw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_o21sw99REeSGZPC8jwcfRQ" memberEnd="_o21sxN9REeSGZPC8jwcfRQ _o21swN9REeSGZPC8jwcfRQ">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_o21sxN9REeSGZPC8jwcfRQ" name="vFS" type="_fIobsN9JEeSD79dXH9UFPw" association="_o21sw99REeSGZPC8jwcfRQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_o21sxd9REeSGZPC8jwcfRQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_o21sxt9REeSGZPC8jwcfRQ" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_-iv_k99REeSGZPC8jwcfRQ" memberEnd="_-iv_lN9REeSGZPC8jwcfRQ _-iv_kN9REeSGZPC8jwcfRQ">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_-iv_lN9REeSGZPC8jwcfRQ" name="vFS" type="_fIobsN9JEeSD79dXH9UFPw" association="_-iv_k99REeSGZPC8jwcfRQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-iv_ld9REeSGZPC8jwcfRQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-iv_lt9REeSGZPC8jwcfRQ" value="1"/>
+    </ownedEnd>
   </packagedElement>
 </uml:Model>
