@@ -10,7 +10,6 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -58,6 +57,12 @@ public class VFS implements Serializable {
 	 */
 	public long getFreeSpace(){
 		return maxSpace - root.getSize();
+	}
+	/**
+	 * @return the name of the actual .vfs file in the host file system.
+	 */
+	public String getName(){
+		return getActualFile().getName();
 	}
 
 	//----------Constructors----------
@@ -144,14 +149,14 @@ public class VFS implements Serializable {
 	/**
 	 * Returns the VItem at the location designated by path in the VFS.
 	 * @param path : the path to the wanted file/directory in the VFS. The directories should be separated by "/".
-	 * The "root/" at the beginning of the path may be omitted.
+	 * The "root" at the beginning of the path may be omitted.
 	 * @return the VItem which path points to
 	 * @throws InvalidPathException is thrown if path doesn't point to any existing file.
 	 */
 	public VItem getPath(String path) throws InvalidPathException{
 		VItem current = getRoot();
-		if(path.startsWith("root/"))
-			path=path.substring(5);
+		if(path.startsWith("root"))
+			path=path.substring(4);
 		StringTokenizer tk = new StringTokenizer(path, "/");
 		while(tk.hasMoreTokens()){
 			boolean found=false;
@@ -170,13 +175,26 @@ public class VFS implements Serializable {
 	}
 
 	/**
-	 * Finds all the VItems named name, using a simple breadth-first search.
+	 * Finds all the VItems named name, using a simple breadth-first search. This is an overload of
+	 * search(name, path) where path is "root"
 	 * @param name : the name of the researched items
 	 * @return a List of VItem, containing all the items of the VFS with the name "name"
 	 */
 	public List<VItem> search(String name){
+		try{return search(name, "");}
+		catch(InvalidPathException e){return null;}//This is never reached.
+	}
+	
+	/**
+	 * Finds all the VItems named name, using a simple breadth-first search.
+	 * @param name : the name of the researched items
+	 * @param path : the file/directory from which to search the items
+	 * @return a List of VItem, containing all the items of the VFS with the name "name"
+	 * @throws InvalidPathException if path is invalid
+	 */
+	public List<VItem> search(String name, String path) throws InvalidPathException{
 		Stack<VItem> Q = new Stack<VItem>();
-		Q.add(getRoot());
+		Q.add(getPath(path));
 		VItem current=null;
 		List<VItem> res = new ArrayList<VItem>();
 		while(!Q.isEmpty()){
