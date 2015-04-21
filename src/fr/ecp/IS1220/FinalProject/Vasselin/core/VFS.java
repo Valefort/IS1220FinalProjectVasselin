@@ -173,6 +173,19 @@ public class VFS implements Serializable {
 		}
 		return current;
 	}
+	
+	/**
+	 * Checks the existence of a file/directory pointed at by path.
+	 * @param path pointing at the file/directory whose existence is to be checked
+	 * @return true if path is valid, false otherwise
+	 */
+	public boolean pathExists(String path){
+		try{
+			return getPath(path) != null;
+		}catch(InvalidPathException e){
+			return false;
+		}
+	}
 
 	/**
 	 * Finds all the VItems named name, using a simple breadth-first search. This is an overload of
