@@ -21,6 +21,7 @@ public class VItemFactory {
 	 */
 	public static VItem importVItem(Path path) throws FileTooLargeException, IOException, NameConflictException{
 		File f = path.toFile();
+		System.out.println(f.getName());
 		if(f.isFile()){
 			byte[] data=null;
 			try{data=new byte[(int)f.length()];}
@@ -33,6 +34,8 @@ public class VItemFactory {
 			return new VFile(f.getName(),data);
 		}else{//here, f is a directory
 			VItem res = new VDirectory(f.getName());
+			if(((!f.isDirectory()) && (!f.isFile())))
+				System.out.println("Merde !");
 			for(String s : f.list()){
 				res.add(importVItem(Paths.get(f.getPath(), s)));
 			}

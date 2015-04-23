@@ -8,8 +8,10 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -226,11 +228,9 @@ public class VFS implements Serializable {
 	private void generate(Path filePath) throws IOException{
 		File file = filePath.toFile();
 		//file.createNewFile();
-		FileOutputStream out = new FileOutputStream(file);
-		byte n[]={0};
-		for(long i=0;i<this.maxSpace;i++)
-			out.write(n);
-		out.close();
+		RandomAccessFile rf = new RandomAccessFile(file, "rw");
+		rf.setLength(getMaxSpace());
+		rf.close();
 	}
 
 }

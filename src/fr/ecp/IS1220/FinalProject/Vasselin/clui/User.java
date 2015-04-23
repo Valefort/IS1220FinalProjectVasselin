@@ -50,8 +50,8 @@ public class User {
 	public void setCurrentVFS(VFS currentVFS) {
 		this.currentVFS = currentVFS;
 		currentVItem=currentVFS.getRoot();
-		currentPath="/";
-		if(openedVFS.contains(currentVFS))
+		currentPath="";
+		if(!openedVFS.contains(currentVFS))
 			openedVFS.add(currentVFS);
 	}
 	/**
@@ -94,7 +94,7 @@ public class User {
 	/**
 	 * A String-based search among the opened VFS.
 	 * @param name : the name of the researched .vfs file. The ".vfs" suffix may be omitted.
-	 * @return null if no VFS with this name has been opened yet, or a VFS with this name.
+	 * @return null if no VFS with this name has been opened yet, or an opened VFS with this name.
 	 */
 	public VFS getVFS(String name){
 		String myName = new String(name);
@@ -142,8 +142,11 @@ public class User {
 	 * @throws NameConflictException if there is already an opened VFS with the same name in this User
 	 */
 	public void openVFS(Path path) throws IOException, NotAVFSException, NameConflictException{
-		if(getVFS(path.toFile().getName()) != null)
-			throw new NameConflictException();
+		String name = path.toFile().getName();
+		for(VFS v : openedVFS){
+			if(v.getName().equals(name))
+				throw new NameConflictException();
+		}
 		VFS test = VFS.load(path);
 		openedVFS.add(test);
 	}
