@@ -132,6 +132,7 @@ public class UserTest {
 		assertEquals("toImport/Portal/WantYouGone.txt", test.toAbsolutePath("toImport/Portal/WantYouGone.txt"));
 		test.setCurrentPath("toImport/Shakespeare");
 		assertEquals("toImport/Shakespeare/ToBe.txt", test.toAbsolutePath("ToBe.txt"));
+		assertEquals("toImport/Shakespeare",test.toAbsolutePath("."));
 	}
 
 	@Test

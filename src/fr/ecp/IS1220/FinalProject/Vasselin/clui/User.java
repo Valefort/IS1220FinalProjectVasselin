@@ -136,6 +136,7 @@ public class User {
 	//Canonical methods
 	/**
 	 * Loads in memory the specified .vfs file and adds the corresponding VFS object to openedVFS.
+	 * If currentVFS is null, it will be set to the opened VFS.
 	 * @param path points to the .vfs file in the host file system
 	 * @throws IOException thrown if path cannot be read
 	 * @throws NotAVFSException thrown if path doesn't point to a VFS
@@ -149,6 +150,8 @@ public class User {
 		}
 		VFS test = VFS.load(path);
 		openedVFS.add(test);
+		if(getCurrentVFS()==null)
+			setCurrentVFS(test);
 	}
 	/**
 	 * A basic method to retrieve the directory containing a file/directory in the currentVFS.
@@ -159,7 +162,7 @@ public class User {
 	public String parentDirectory(String path) throws InvalidPathException{
 		return parentDirectory(path, true);
 	}
-	private String parentDirectory(String path, boolean checkExistence) throws InvalidPathException{
+	protected String parentDirectory(String path, boolean checkExistence) throws InvalidPathException{
 		if(currentVFS.pathExists(path) || !checkExistence){
 			int i = path.lastIndexOf('/');
 			if(i>0)
