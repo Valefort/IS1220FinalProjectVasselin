@@ -3,6 +3,8 @@ package fr.ecp.IS1220.FinalProject.Vasselin.clui.test;
 import static org.junit.Assert.*;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -45,7 +47,9 @@ public class UserTest {
 	public void testGetCurrentVItem() throws Exception{
 		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
 		assertEquals(test.getCurrentVFS().getRoot(),test.getCurrentVItem());
-		fail("A terminer avec GetSetCurrentPath");
+		test.setCurrentPath("toImport/Shakespeare");
+		assertEquals("Shakespeare",test.getCurrentVItem().getName());
+		assertTrue(test.getCurrentVItem() instanceof VDirectory);
 	}
 
 	@Test
@@ -64,7 +68,8 @@ public class UserTest {
 	@Test
 	public void testGetVFS() throws Exception{
 		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		
+		assertEquals("test_used_vfs.vfs",test.getVFS("test_used_vfs").getName());
+		assertEquals(null, test.getVFS("example_music_storage"));
 	}
 
 	@Test
@@ -88,63 +93,78 @@ public class UserTest {
 	}
 
 	@Test
-	public void testUserPath() throws Exception{
-		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testOpenVFS() throws Exception{
-		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testParentDirectoryString() throws Exception{
 		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		fail("Not yet implemented");
+		assertEquals("toImport/Portal", test.parentDirectory("toImport/Portal/PieceOfCake.txt"));
+		assertEquals("", test.parentDirectory("toImport"));
+		assertEquals("toImport",test.parentDirectory("toImport/Shakespeare"));
 	}
 
 	@Test
 	public void testParentDirectory() throws Exception{
 		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		fail("Not yet implemented");
+		assertEquals("", test.parentDirectory());
+		test.setCurrentPath("toImport/Portal");
+		assertEquals("toImport", test.parentDirectory());
 	}
 
 	@Test
 	public void testGoToParentDirectory() throws Exception{
 		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		fail("Not yet implemented");
+		test.setCurrentPath("toImport/Portal");
+		test.goToParentDirectory();
+		assertEquals("toImport",test.getCurrentPath());
 	}
 
 	@Test
 	public void testToAbsolutePathStringString() throws Exception{
 		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		fail("Not yet implemented");
+		assertEquals("toImport/Latin.txt",test.toAbsolutePath("Latin.txt","toImport"));
+		assertEquals("toImport/Portal", test.toAbsolutePath("Portal","toImport"));
+		assertEquals("toImport/Portal", test.toAbsolutePath(".","toImport/Portal"));
+		assertEquals("toImport", test.toAbsolutePath("..","toImport/Shakespeare"));
+		assertEquals("toImport/Portal", test.toAbsolutePath("..","toImport/Portal/PieceOfCake.txt"));
 	}
 
 	@Test
 	public void testToAbsolutePathString() throws Exception{
 		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		fail("Not yet implemented");
+		assertEquals("toImport/Portal/WantYouGone.txt", test.toAbsolutePath("toImport/Portal/WantYouGone.txt"));
+		test.setCurrentPath("toImport/Shakespeare");
+		assertEquals("toImport/Shakespeare/ToBe.txt", test.toAbsolutePath("ToBe.txt"));
 	}
 
 	@Test
 	public void testGoToString() throws Exception{
 		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		fail("Not yet implemented");
+		test.goTo("toImport");
+		assertEquals("toImport",test.getCurrentPath());
+		test.goTo("Portal");
+		assertEquals("toImport/Portal",test.getCurrentPath());
+		test.goTo("..");
+		assertEquals("toImport",test.getCurrentPath());
 	}
 
 	@Test
 	public void testGoToVItem() throws Exception{
 		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		fail("Not yet implemented");
+		test.goTo(test.getCurrentVFS().getRoot().getSuccessors().get(0));
+		assertEquals("toImport", test.getCurrentPath());
+		test.goTo(test.getCurrentVItem().getSuccessors().get(0));
+		List<String> bidon = new ArrayList<String>();
+		bidon.add("Portal");bidon.add("Shakespeare");bidon.add("Latin.txt");
+		assertTrue(bidon.contains(test.getCurrentVItem().getName()));
 	}
 
 	@Test
 	public void testMove() throws Exception{
 		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		fail("Not yet implemented");
+		VItem moved = test.getCurrentVFS().search("Latin.txt").get(0);
+		test.move("toImport/Latin.txt", "toImport/Portal/text.txt");
+		assertTrue(!test.getCurrentVFS().getRoot().getSuccessors().get(0).getSuccessors().contains(moved));
+		test.setCurrentPath("toImport/Portal");
+		assertTrue(test.getCurrentVItem().getSuccessors().contains(moved));
+		test.move("toImport/Portal/text.txt", "toImport/Latin.txt");
 	}
 
 }

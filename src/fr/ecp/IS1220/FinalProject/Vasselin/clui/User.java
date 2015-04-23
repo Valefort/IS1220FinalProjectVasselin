@@ -160,8 +160,13 @@ public class User {
 		return parentDirectory(path, true);
 	}
 	private String parentDirectory(String path, boolean checkExistence) throws InvalidPathException{
-		if(currentVFS.pathExists(path) || !checkExistence)
-			return path.substring(0, path.lastIndexOf('/'));
+		if(currentVFS.pathExists(path) || !checkExistence){
+			int i = path.lastIndexOf('/');
+			if(i>0)
+				return path.substring(0, i);
+			else
+				return "";
+		}
 		else
 			throw new InvalidPathException();
 	}
@@ -199,7 +204,7 @@ public class User {
 				relativePath=relativePath.substring(1);
 		}
 		else{
-			if(!referencePath.endsWith("/"))
+			if(!referencePath.endsWith("/") && !referencePath.isEmpty() && !relativePath.isEmpty())
 				relativePath="/"+relativePath;
 		}
 		String res=referencePath+relativePath;
