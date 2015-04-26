@@ -283,7 +283,13 @@ public class User {
 	}
 	
 	
-	
+	/**
+	 * Search in a given vfs named vfsName all the VItems named filename.
+	 * Returns a string containing all the pathes to the different files named filename.
+	 * @param vfsName : The name of the opened vfs where the search is to be performed.
+	 * @param filename : The wanted filename. It has to be the exact name of a virtual file or directory.
+	 * @return returns null if no such file was found. If there was at least one file, returns a string containing all the paths to the different files, in different lines.
+	 */
 	public String search(String vfsName, String filename) {
 		VFS vfs = getVFS(vfsName);
 		List<VItem> matchingVItems = vfs.search(filename);
