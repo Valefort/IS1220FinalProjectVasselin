@@ -153,6 +153,26 @@ public class User {
 		if(getCurrentVFS()==null)
 			setCurrentVFS(test);
 	}
+	
+//	/**
+//	 * 
+//	 * @param vfsName
+//	 * @throws VFSNotFoundException
+//	 */
+//	public void closeVFS(String vfsName){
+//		openedVFS.remove(getVFS(vfsName));
+//	}
+	
+	/**
+	 * Create a vfs, at the specified path (WARNING : the specified path also determines the vfs name), and of the specified maximum size.
+	 * @param concreteVFSPath : the path of the newly created VFS. It also determines the vfs name.
+	 * @param maxSpace : the maximum reachable size of the newly created vfs.
+	 */
+	public void createVFS(Path concreteVFSPath, long maxSpace)throws IOException{
+	new VFS(maxSpace, concreteVFSPath); //warning : the parameters are swapped between the method in the VFS class and the current method.
+	}
+
+	
 	/**
 	 * A basic method to retrieve the directory containing a file/directory in the currentVFS.
 	 * @param path : the file/directory whose parent directory must be determined, in the currentVFS
