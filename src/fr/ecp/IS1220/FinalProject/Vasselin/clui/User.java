@@ -281,4 +281,8 @@ public class User {
 		test.setName(newPath.substring(newPath.lastIndexOf("/")+1));
 		target.add(test);//No NameConflictException should be thrown here
 	}
+	public String search(String vfsName, String filename) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
