@@ -260,29 +260,49 @@ public class User {
 		VItem test=null;
 		try{test=currentVFS.getPath(oldpath);
 		}catch(InvalidPathException e){throw new VItemNotFoundException();}
-		
+
 		if(test==currentVFS.getRoot())
 			return;
-		
+
 		VItem parent=null;
 		try{parent=currentVFS.getPath(parentDirectory(oldpath));
 		}catch(InvalidPathException e){}//Does not happen since oldpath is valid
-		
+
 		if(currentVFS.pathExists(newPath))
 			throw new NameConflictException();//We have to check there, because if any exception happens,
 		//we don't want to damage anything (i.e don't do any remove/setName/...)
-		
+
 		VItem target=null;
 		target=currentVFS.getPath(parentDirectory(newPath, false));//Any InvalidPathException here will come
 		//from getPath, meaning the newPath is not valid
-		
+
 		//Here, we are good. Let's proceed.
 		parent.remove(test);
 		test.setName(newPath.substring(newPath.lastIndexOf("/")+1));
 		target.add(test);//No NameConflictException should be thrown here
 	}
+	
+	
+	
 	public String search(String vfsName, String filename) {
-		// TODO Auto-generated method stub
+		VFS vfs = getVFS(vfsName);
+		List<VItem> matchingVItems = vfs.search(filename);
+		String result = new String();
+		
+		if(matchingVItems.isEmpty()){
+			return null;
+		}else{
+			for(VItem i:matchingVItems){
+				try{
+					goTo(i);
+				}catch(VItemNotFoundException e){
+					System.out.println("Error : cannot access to the virtual file or directory "+ i.getName() + "\n File not found.");
+				}
+				result = result + getCurrentPath() +"\n";				
+			}
+		}
+
+
 		return null;
 	}
 }
