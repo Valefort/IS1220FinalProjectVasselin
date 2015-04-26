@@ -19,7 +19,7 @@ public abstract class Command {
 	abstract public String getName();
 	
 	/**
-	 * Parses com and executes it, or dispaly an error message if com isn't a valid command
+	 * Parses com and executes it, or display an error message if com isn't a valid command
 	 * @param com : the command line to be parsed.
 	 */
 	abstract public void parse(String com);
