@@ -13,7 +13,7 @@ public class User {
 	private VItem clipboard;
 	private List<VFS> openedVFS;
 	private VFS currentVFS;
-	private VItem currentVItem; // ATTENTION : GOTO ne modifie pas le curent VItem... Quid de ne pas mettre d'attribut current VItem et de n'utiliser que des chemins directement ? avec un get qui renvoie le VItem au bout du chemin ? Tfaçons il faudra bien passer par là à un moment ou un autre, que ce soit dans le goto ou dans le  getCurrentVItem...
+	private VItem currentVItem;
 	private String currentPath;
 
 	//Getters and Setters
