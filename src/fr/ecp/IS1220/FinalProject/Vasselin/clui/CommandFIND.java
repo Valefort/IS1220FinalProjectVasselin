@@ -49,7 +49,9 @@ public class CommandFIND extends Command {
 	}
 	@Override
 	public void help(){
-		
+		System.out.println("Usage :\n"
+				+ "find vfsName filename\n"
+				+ "find filename\n");
 	}
 
 }

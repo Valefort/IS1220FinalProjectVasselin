@@ -41,7 +41,7 @@ public class CommandFREE extends Command {
 	}
 	@Override
 	public void help(){
-		
+		System.out.println("Usage :\nfree");
 	}
 
 }

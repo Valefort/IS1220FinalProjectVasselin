@@ -103,7 +103,10 @@ public class CommandLS extends Command {
 	
 	@Override
 	public void help(){
-		
+		System.out.println("Usage :\n"
+				+ "ls\n"
+				+ "ls vfsname arguments path\n"
+				+"Arguments : -l");
 	}
 
 }

@@ -44,7 +44,8 @@ public class CommandOPENVFS extends Command {
 
 	@Override
 	public void help() {
-		// TODO Auto-generated method stub
+		System.out.println("Usage :\n"
+				+ "openvfs hostPath");
 
 	}
 	

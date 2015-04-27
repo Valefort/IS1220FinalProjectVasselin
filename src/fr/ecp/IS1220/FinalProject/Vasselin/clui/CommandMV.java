@@ -57,6 +57,10 @@ public class CommandMV extends Command {
 	
 	@Override
 	public void help(){
+		System.out.println("Usage :\n"
+				+ "mv vfsname oldpath newpath\n"
+				+ "mv newpath\n"
+				+"impvfs hostPath\n WARNING hostPath has to be absolute.");
 		
 	}
 

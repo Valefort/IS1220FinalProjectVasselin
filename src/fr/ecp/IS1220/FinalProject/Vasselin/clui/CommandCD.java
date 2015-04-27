@@ -56,7 +56,8 @@ public class CommandCD extends Command {
 	
 	@Override
 	public void help(){
-		
+		System.out.println("Usage :\n"
+				+ "cd virtualPath");
 	}
 
 }

@@ -60,6 +60,10 @@ public class CommandEXPVFS extends Command {
 	
 	@Override
 	public void help(){
+		System.out.println("Usage :\n"
+				+ "expvfs vfsName hostpath\n"
+				+ "expvfs hostpath\n"
+				+ "WARNING : hostpath has to be absolute");
 		
 	}
 }

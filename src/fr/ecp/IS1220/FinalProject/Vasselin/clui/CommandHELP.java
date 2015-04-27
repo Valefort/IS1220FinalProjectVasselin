@@ -27,7 +27,7 @@ public class CommandHELP extends Command {
 	}
 
 	public void run(){
-		System.out.println(""); //General info about the CLUI
+		System.out.println("Type a command to manipulate the VFS. The available commands are : ls, cd, mv, cp, rm, crvfs, rmvfs, impvfs, expvfs, free, find, help, openvfs"); //General info about the CLUI
 		for(Command c: parser.getCommands()){
 			c.help();
 		}
@@ -42,7 +42,10 @@ public class CommandHELP extends Command {
 	}
 	
 	@Override
-	public void help(){
+	public void help(){		
+		System.out.println("Usage :\n"
+			+ "help commandName\n"
+			+ "help\n");
 		
 	}
 

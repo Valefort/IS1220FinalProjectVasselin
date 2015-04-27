@@ -90,6 +90,10 @@ public class CommandCP extends Command {
 	
 	@Override
 	public void help(){
+		System.out.println("Usage :\n"
+				+ "cp targetPath\n"
+				+ "cp sourcePath targetPath\n"
+				+ "cp vfsName sourcePath targetPath\n");
 		
 	}
 

@@ -73,7 +73,8 @@ public class CommandRM extends Command {
 	
 	@Override
 	public void help(){
-		
+		System.out.println("Usage :\n"
+				+ "rm vfsname path");
 	}
 
 }

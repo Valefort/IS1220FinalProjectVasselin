@@ -81,7 +81,10 @@ public class CommandIMPVFS extends Command {
 	
 	@Override
 	public void help(){
-		
+		System.out.println("Usage :\n"
+				+ "impvfs hostPath vfsName vfsPath\n"
+				+ "impvfs hostPath vfsPath\n"
+				+"impvfs hostPath\n WARNING hostPath has to be absolute.");
 	}
 
 }

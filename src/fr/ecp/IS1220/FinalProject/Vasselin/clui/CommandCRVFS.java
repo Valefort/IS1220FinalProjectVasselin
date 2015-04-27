@@ -71,6 +71,8 @@ public class CommandCRVFS extends Command {
 	
 	@Override
 	public void help(){
+		System.out.println("Usage :\n"
+				+ "crvfs concreteVFSPath maxSpace\n");
 		
 	}
 
