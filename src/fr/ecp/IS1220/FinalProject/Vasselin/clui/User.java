@@ -154,7 +154,6 @@ public class User {
 			setCurrentVFS(test);
 	}
 
-	
 	/**
 	 * Closes a VFS, ie remove it from the list of opened VFS.
 	 * @param vfs : the vfs to be closed

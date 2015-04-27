@@ -2,7 +2,10 @@ package fr.ecp.IS1220.FinalProject.Vasselin.clui.test;
 
 import static org.junit.Assert.*;
 
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -14,6 +17,16 @@ import fr.ecp.IS1220.FinalProject.Vasselin.clui.*;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.*;
 
 public class UserTest {
+	
+	private boolean compareByteArray(byte[] a, byte[] b){
+		if(a.length != b.length)
+			return false;
+		for(int i=0; i<a.length;i++){
+			if(a[i]!=b[i])
+				return false;
+		}
+		return true;
+	}
 
 	@Test
 	public void testGetSetClipboard() throws Exception{
@@ -172,9 +185,9 @@ public class UserTest {
 		
 	@Test
 	public void testCloseVFS() throws Exception{
-		fail("Not yet implemented");
-		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
-		
+		User user = new User(Paths.get("eval/host/test_used_vfs.vfs"));
+		user.closeVFS("test_used_vfs.vfs");		
+		assertTrue(user.getOpenedVFS().isEmpty());
 	}
 	
 	@Test
@@ -190,9 +203,20 @@ public class UserTest {
 		
 	}
 	
+	//Il n'arrive pas à ouvrir un vfs fraichement créé...
 	@Test
-	public void testCRemoveVFS() throws Exception{
-		fail("Not yet implemented");
+	public void testRemoveVFS() throws Exception{
+		User user = new User();
+		Path concreteVFSPath = Paths.get("eval/host/test_create_vfs.vfs");
+		long maxSpace = 42000;		
+		user.createVFS(concreteVFSPath, maxSpace);
+		user.openVFS(concreteVFSPath);
+		
+		VFS vfsToRemove = user.getVFS("test_create_vfs.vfs");
+		user.removeVFS(vfsToRemove);
+
+		assertTrue(user.getOpenedVFS().isEmpty());
+//		assertTrue(!(new File("eval/host/test_create_vfs.vfs").exists()));
 	}
 	
 	@Test
@@ -202,7 +226,49 @@ public class UserTest {
 	
 	@Test
 	public void testExportVFS() throws Exception{
-		fail("Not yet implemented");
+		User user = new User(Paths.get("eval/host/test_used_vfs.vfs"));
+		Path hostPath = Paths.get("eval/host/Exported");
+		VFS vfsToExport = user.getVFS("test_used_vfs.vfs");
+		
+		user.exportVFS(hostPath, vfsToExport);
+		
+		File f = new File("eval/host/Exported/root");
+		assertTrue(f.exists());		
+		File f2 = new File("eval/host/Exported/root/toImport");
+		assertTrue(f2.exists());
+		File f3 = new File("eval/host/Exported/root/toImport/Portal");
+		assertTrue(f3.exists());
+		File f4 = new File("eval/host/Exported/root/toImport/Portal/Latin.txt");
+		assertTrue(f4.exists());
+		File f5 = new File("eval/host/Exported/root/toImport/Portal/PieceOfCake.txt");
+		assertTrue(f5.exists());
+		
+		//Does not work : comparison byte by byte between the imported and exported folder.
+//		File g = new File("eval/host/toImport");
+//		File h = new File("eval/host/Exported/root/toImport");
+//
+//		byte[] data1=null;
+//		try{data1=new byte[(int)g.length()];}
+//		catch(ClassCastException e){throw new FileTooLargeException();}
+//		InputStream in1 = new FileInputStream(g);
+//		DataInputStream in = new DataInputStream(in1);
+//		in.read(data1);
+//		in.close();
+//		in1.close();
+//		
+//		byte[] data2=null;
+//		try{data2=new byte[(int)g.length()];}
+//		catch(ClassCastException e){throw new FileTooLargeException();}
+//		InputStream iN1 = new FileInputStream(h);
+//		DataInputStream iN = new DataInputStream(iN1);
+//		iN.read(data2);
+//		iN.close();
+//		iN1.close();
+//		
+//
+//		assertTrue(compareByteArray(data1, data2));
+		
+		
 	}
 	
 	@Test
