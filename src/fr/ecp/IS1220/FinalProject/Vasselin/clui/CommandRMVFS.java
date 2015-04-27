@@ -21,21 +21,15 @@ public class CommandRMVFS extends Command {
 
 	@Override
 	public void parse(String com) {
-//		StringTokenizer tk = new StringTokenizer(com);
-//		if(tk.countTokens()==0){
-//			System.out.println("Error : not enough arguments given to " + getName());
-//		}else if(tk.countTokens()==1){
-//			String filename = tk.nextToken();
-//			run(user.getCurrentVFS().getName(),filename);
-//		}else if(tk.countTokens()==2){
-//			String vfsName = tk.nextToken();
-//			String filename = tk.nextToken();
-//			run(vfsName,filename);
-//		}else if(tk.countTokens()>=3){
-//			run(tk.nextToken(),tk.nextToken());
-//			if(tk.hasMoreTokens())
-//				System.out.println("Error : ignoring end of command starting from "+tk.nextToken());
-//		}
+		StringTokenizer tk = new StringTokenizer(com);
+		if(tk.countTokens()==0){
+			System.out.println("Error : not enough arguments given to " + getName());
+		}else if(tk.countTokens()==1){
+			String vfsName = tk.nextToken();
+			run(vfsName);
+		}else if(tk.hasMoreTokens()){
+				System.out.println("Error : ignoring end of command starting from "+tk.nextToken());
+		}
 	}
 	
 	public void run(String vfsName){
