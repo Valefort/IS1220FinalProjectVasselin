@@ -26,8 +26,9 @@ public class VItemFactoryTest {
 	 * @param a : a VItem
 	 * @param b : another VItem
 	 * @return true if a and b have the same content, false otherwise.
+	 * Warning : set to public in order to be used in the clui tests
 	 */
-	protected static boolean alike(VItem a, VItem b){
+	public static boolean alike(VItem a, VItem b){
 		if(a instanceof VDirectory){
 			if(b instanceof VDirectory){//on est du même type...
 				if(!a.getName().equals(b.getName())){

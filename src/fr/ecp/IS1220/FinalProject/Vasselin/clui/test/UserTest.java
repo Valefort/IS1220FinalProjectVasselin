@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import fr.ecp.IS1220.FinalProject.Vasselin.clui.*;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.*;
+import fr.ecp.IS1220.FinalProject.Vasselin.core.test.VItemFactoryTest;
 
 public class UserTest {
 	
@@ -221,7 +222,20 @@ public class UserTest {
 	
 	@Test
 	public void testImportItem() throws Exception{
-		fail("Not yet implemented");
+		User user = new User(Paths.get("eval/host/test_used_vfs.vfs"));
+		Path hostPath = Paths.get("eval/host/toImport/Portal");
+		String vfsPath = "root/toImport/Shakespeare";
+		String vfsName = "test_used_vfs.vfs";
+		String referencePath = "root/toImport/Portal";
+		
+		user.importItem(hostPath, vfsName, vfsPath);
+		user.setCurrentPath(vfsPath);
+		VItem a = user.getCurrentVItem();
+		user.setCurrentPath(referencePath);
+		VItem b = user.getCurrentVItem();
+		
+		assertTrue(VItemFactoryTest.alike(a, b));
+		
 	}
 	
 	@Test
