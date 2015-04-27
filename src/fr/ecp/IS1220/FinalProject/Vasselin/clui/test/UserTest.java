@@ -167,5 +167,35 @@ public class UserTest {
 		assertTrue(test.getCurrentVItem().getSuccessors().contains(moved));
 		test.move("toImport/Portal/text.txt", "toImport/Latin.txt");
 	}
-
+		
+	@Test
+	public void testCloseVFS(){
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testCreateVFS() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testCRemoveVFS() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testImportItem() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testExportVFS() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testSearch(){
+		fail("Not yet implemented");
+	}
+	
 }

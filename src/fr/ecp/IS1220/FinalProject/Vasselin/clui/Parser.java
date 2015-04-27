@@ -44,6 +44,13 @@ public class Parser extends User {
 		commands.add(new CommandFREE(this));
 		commands.add(new CommandFIND(this));
 		commands.add(new CommandCRVFS(this));
+		commands.add(new CommandIMPVFS(this));
+		commands.add(new CommandEXPVFS(this));
+		commands.add(new CommandHELP(this));
+		commands.add(new CommandRMVFS(this));
+
+
+		
 	}
 
 	//Commands

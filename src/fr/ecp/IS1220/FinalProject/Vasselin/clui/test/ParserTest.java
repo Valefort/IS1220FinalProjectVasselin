@@ -89,8 +89,48 @@ public class ParserTest {
 	}
 
 	@Test
+	public void testRM() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testCRVFS() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testRMVFS() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testIMPVFS() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testEXPVFS() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testFREE() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testFIND() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testHELP() throws Exception{
+		fail("Not yet implemented");
+	}
+	
+	@Test
 	public void testRunScript() {
 		fail("Not yet implemented");
 	}
-
+	
 }
