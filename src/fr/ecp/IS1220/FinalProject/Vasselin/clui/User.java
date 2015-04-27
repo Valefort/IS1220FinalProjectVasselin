@@ -153,16 +153,25 @@ public class User {
 		if(getCurrentVFS()==null)
 			setCurrentVFS(test);
 	}
+
 	
-//	/**
-//	 * 
-//	 * @param vfsName
-//	 * @throws VFSNotFoundException
-//	 */
-//	public void closeVFS(String vfsName){
-//		openedVFS.remove(getVFS(vfsName));
-//	}
-	
+	/**
+	 * Closes a VFS, ie remove it from the list of opened VFS.
+	 * @param vfs : the vfs to be closed
+	 * @throws VFSNotFoundException
+	 */
+	public void closeVFS(VFS vfs){
+		openedVFS.remove(vfs);
+	}
+	/**
+	 * Overloaded method.
+	 * Closes a VFS, ie remove it from the list of opened VFS.
+	 * @param vfsName : the name of the VFS to be closed.
+	 * @throws VFSNotFoundException
+	 */
+	public void closeVFS(String vfsName){
+		closeVFS(getVFS(vfsName));
+	}
 	/**
 	 * Create a vfs, at the specified path (WARNING : the specified path also determines the vfs name), and of the specified maximum size.
 	 * @param concreteVFSPath : the path of the newly created VFS. It also determines the vfs name.
@@ -170,6 +179,15 @@ public class User {
 	 */
 	public void createVFS(Path concreteVFSPath, long maxSpace)throws IOException{
 	new VFS(maxSpace, concreteVFSPath); //warning : the parameters are swapped between the method in the VFS class and the current method.
+	}
+	
+	/**
+	 * Remove a given VFS : closes it and deletes it.
+	 * @param vfs : the vfs to be removed
+	 */
+	public void removeVFS(VFS vfs)throws SecurityException{
+		closeVFS(vfs);
+		vfs.delete();
 	}
 
 	
