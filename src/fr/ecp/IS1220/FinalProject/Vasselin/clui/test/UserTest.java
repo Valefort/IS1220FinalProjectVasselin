@@ -2,6 +2,8 @@ package fr.ecp.IS1220.FinalProject.Vasselin.clui.test;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -177,7 +179,15 @@ public class UserTest {
 	
 	@Test
 	public void testCreateVFS() throws Exception{
-		fail("Not yet implemented");
+		User user = new User();
+		Path concreteVFSPath = Paths.get("eval/host/test_create_vfs.vfs");
+		long maxSpace = 42000;
+		
+		user.createVFS(concreteVFSPath, maxSpace);
+		assertTrue(new File("eval/host/test_create_vfs.vfs").exists());
+		File f = new File("eval/host/test_create_vfs.vfs");
+		assertEquals(maxSpace,f.length());
+		
 	}
 	
 	@Test
