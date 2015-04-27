@@ -252,7 +252,7 @@ public class VFS implements Serializable {
 			test_used_vfs.getRoot().add(VItemFactory.importVItem(Paths.get("eval/host/toImport")));
 			test_used_vfs.save();
 			
-			test_used_vfs.getRoot().exportVItem(Paths.get("eval/host/Exported"));
+//			test_used_vfs.getRoot().exportVItem(Paths.get("eval/host/Exported"));
 			
 		} catch (Exception e) {
 			System.out.println("Error : impossible to create the vfs.");
