@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -86,7 +87,7 @@ public class VFS implements Serializable {
 		actualFile = path.toFile();
 	}
 
-	//----------Saving functionalities
+	//----------Saving functionalities-----------------------------------------
 
 	/**
 	 * Saves the content of this VFS to the hard-drive.
@@ -231,5 +232,22 @@ public class VFS implements Serializable {
 		rf.setLength(getMaxSpace());
 		rf.close();
 	}
+	
+	
+	
+	//-----------Generation of the vfs file used_test_vfs.vfs------------------	
+//	public static void main(String[] args) {
+//		Path path = Paths.get("");
+//		long maxSpace = 10000;
+//		try {
+//			VFS used_test_vfs = new VFS(maxSpace, path);
+//		} catch (IOException e) {
+//			System.out.println("Error : impossible to create the vfs.");
+//			e.printStackTrace();
+//		}
+//
+//	}
+	
+	
 
 }
