@@ -9,8 +9,8 @@ import fr.ecp.IS1220.FinalProject.Vasselin.core.VItemNotFoundException;
 
 public class CommandMV extends Command {
 
-	public CommandMV(User user) {
-		super(user);
+	public CommandMV(Parser parser) {
+		super(parser);
 	}
 
 	@Override
@@ -24,9 +24,9 @@ public class CommandMV extends Command {
 		if(tk.countTokens()==0){
 			System.out.println("Error : not enough arguments given to mv");
 		}else if(tk.countTokens()==1){
-			run(user.getCurrentVFS().getName(),user.getCurrentPath(),tk.nextToken());
+			run(parser.getCurrentVFS().getName(),parser.getCurrentPath(),tk.nextToken());
 		}else if(tk.countTokens()==2){
-			run(user.getCurrentVFS().getName(),tk.nextToken(),tk.nextToken());
+			run(parser.getCurrentVFS().getName(),tk.nextToken(),tk.nextToken());
 		}else if(tk.countTokens()>=3){
 			run(tk.nextToken(),tk.nextToken(), tk.nextToken());
 			if(tk.hasMoreTokens())
@@ -35,15 +35,15 @@ public class CommandMV extends Command {
 	}
 	
 	private void run(String vfsname, String oldpath, String newpath){
-		VFS vfs = user.getVFS(vfsname);
+		VFS vfs = parser.getVFS(vfsname);
 		if(vfs==null){
 			System.out.println("Error : unknown VFS name in mv : "+vfsname);
 			return;
 		}
 		
-		user.setCurrentVFS(vfs);
+		parser.setCurrentVFS(vfs);
 		
-		try{user.move(oldpath, newpath);}
+		try{parser.move(oldpath, newpath);}
 		catch(VItemNotFoundException e){
 			System.out.println("Error : item not found in mv : "+oldpath);
 		}

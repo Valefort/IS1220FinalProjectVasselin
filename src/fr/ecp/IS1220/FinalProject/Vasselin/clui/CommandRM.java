@@ -14,8 +14,8 @@ import fr.ecp.IS1220.FinalProject.Vasselin.core.VItemNotFoundException;
 public class CommandRM extends Command {
 
 
-	public CommandRM(User user) {
-		super(user);
+	public CommandRM(Parser parser) {
+		super(parser);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class CommandRM extends Command {
 		}else if(tk.countTokens()==1){
 			String pathToRemove = tk.nextToken();
 			try{
-				run(user.getCurrentVFS().getName(),user.toAbsolutePath(pathToRemove));
+				run(parser.getCurrentVFS().getName(),parser.toAbsolutePath(pathToRemove));
 			}catch(InvalidPathException e){
 				System.out.println("Error : the following path " + pathToRemove + "was expected to be relative and was absolute instead, or invalid.");
 			}
@@ -48,7 +48,7 @@ public class CommandRM extends Command {
 	}
 
 	private void run(String vfsName, String absolutePath){
-		VFS vfs = user.getVFS(vfsName);
+		VFS vfs = parser.getVFS(vfsName);
 		if(vfs==null){
 			System.out.println("Error : unknown VFS name in cd : "+vfsName);
 			return;
@@ -56,15 +56,15 @@ public class CommandRM extends Command {
 
 		try{
 			//setCurentPath is used there, because the given path is absolute.
-			user.setCurrentPath(absolutePath);
+			parser.setCurrentPath(absolutePath);
 		}catch(InvalidPathException e){
 			System.out.println("Error : invalid path " + absolutePath);
 		}
-		VItem toRemove = user.getCurrentVItem();
-		user.goToParentDirectory();
+		VItem toRemove = parser.getCurrentVItem();
+		parser.goToParentDirectory();
 
 		try{
-			user.getCurrentVItem().remove(toRemove);
+			parser.getCurrentVItem().remove(toRemove);
 		}catch(VItemNotFoundException e){
 			System.out.println("Error : tried to remove the root or item to be removed not found.");
 		}

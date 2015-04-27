@@ -10,8 +10,8 @@ import java.util.StringTokenizer;
  */
 public class CommandRMVFS extends Command {
 
-	public CommandRMVFS(User user) {
-		super(user);
+	public CommandRMVFS(Parser parser) {
+		super(parser);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class CommandRMVFS extends Command {
 	
 	public void run(String vfsName){
 		try{
-		user.removeVFS(user.getVFS(vfsName));
+		parser.removeVFS(parser.getVFS(vfsName));
 		}
 		catch(SecurityException e){
 			System.out.println("Error : error during the deletion of the vfs.");

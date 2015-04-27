@@ -10,8 +10,8 @@ import java.util.StringTokenizer;
  */
 public class CommandFIND extends Command {
 
-	public CommandFIND(User user) {
-		super(user);
+	public CommandFIND(Parser parser) {
+		super(parser);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class CommandFIND extends Command {
 			System.out.println("Error : not enough arguments given to " + getName());
 		}else if(tk.countTokens()==1){
 			String filename = tk.nextToken();
-			run(user.getCurrentVFS().getName(),filename);
+			run(parser.getCurrentVFS().getName(),filename);
 		}else if(tk.countTokens()==2){
 			String vfsName = tk.nextToken();
 			String filename = tk.nextToken();
@@ -39,7 +39,7 @@ public class CommandFIND extends Command {
 	}
 
 	public void run(String vfsName, String filename){
-		String result = user.search(vfsName, filename);
+		String result = parser.search(vfsName, filename);
 		if(result == null){
 			System.out.println("File "+filename+" not found in the vfs " + vfsName);
 		}

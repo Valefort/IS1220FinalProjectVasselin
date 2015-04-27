@@ -3,12 +3,12 @@ package fr.ecp.IS1220.FinalProject.Vasselin.clui;
 public abstract class Command {
 	
 	//Attributes
-	protected User user;
+	protected Parser parser;
 	
 	//Constructor
-	public Command(User user) {
+	public Command(Parser parser) {
 		super();
-		this.user = user;
+		this.parser = parser;
 	}
 	
 	//Abstract Methods

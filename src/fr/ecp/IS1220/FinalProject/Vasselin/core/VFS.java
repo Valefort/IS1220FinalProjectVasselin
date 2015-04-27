@@ -245,19 +245,37 @@ public class VFS implements Serializable {
 	
 	//-----------Generation of the vfs file used_test_vfs.vfs------------------	
 	public static void main(String[] args) {
-		Path path = Paths.get("eval/host/test_used_vfs.vfs");
-		long maxSpace = 30000000;
+//		Path path = Paths.get("eval/host/test_used_vfs.vfs");
+//		long maxSpace = 30000000;
+//		try {
+//			VFS test_used_vfs = new VFS(maxSpace, path);
+//			test_used_vfs.getRoot().add(VItemFactory.importVItem(Paths.get("eval/host/toImport")));
+//			test_used_vfs.save();
+//			
+//			//test_used_vfs.getRoot().exportVItem(Paths.get("eval/host/Exported"));
+//			
+//		} catch (Exception e) {
+//			System.out.println("Error : impossible to create the vfs.");
+//			e.printStackTrace();
+//		}
+
+		
+		Path path = Paths.get("eval/host/example_music_storage.vfs");
+		long maxSpace = 20000000;
+		
 		try {
-			VFS test_used_vfs = new VFS(maxSpace, path);
-			test_used_vfs.getRoot().add(VItemFactory.importVItem(Paths.get("eval/host/toImport")));
-			test_used_vfs.save();
-			
-//			test_used_vfs.getRoot().exportVItem(Paths.get("eval/host/Exported"));
-			
-		} catch (Exception e) {
-			System.out.println("Error : impossible to create the vfs.");
-			e.printStackTrace();
-		}
+		VFS example_music_storage = new VFS(maxSpace, path);
+		example_music_storage.getRoot().add(VItemFactory.importVItem(Paths.get("eval/host/MusicToImport")));
+		example_music_storage.save();
+		
+		//test_used_vfs.getRoot().exportVItem(Paths.get("eval/host/Exported"));
+		
+	} catch (Exception e) {
+		System.out.println("Error : impossible to create the vfs.");
+		e.printStackTrace();
+	}
+		
+		
 	}
 	
 		

@@ -7,8 +7,8 @@ import fr.ecp.IS1220.FinalProject.Vasselin.core.VFS;
 
 public class CommandFREE extends Command {
 
-	public CommandFREE(User user) {
-		super(user);
+	public CommandFREE(Parser parser) {
+		super(parser);
 	}
 
 	@Override
@@ -20,12 +20,12 @@ public class CommandFREE extends Command {
 	public void parse(String com) {
 		StringTokenizer tk = new StringTokenizer(com);
 		if(tk.countTokens()==0){
-			run(user.getCurrentVFS());
+			run(parser.getCurrentVFS());
 		}else if(tk.countTokens()==1){
 			String path = tk.nextToken();
 			try{
-				user.setCurrentVFS(Paths.get(path));
-				run(user.getCurrentVFS());
+				parser.setCurrentVFS(Paths.get(path));
+				run(parser.getCurrentVFS());
 			}catch(Exception e){
 				System.out.println("Error : unable to get to the path " + path);
 			}

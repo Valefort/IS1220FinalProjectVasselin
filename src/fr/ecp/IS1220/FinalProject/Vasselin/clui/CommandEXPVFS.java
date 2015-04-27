@@ -17,8 +17,8 @@ import java.util.StringTokenizer;
  */
 public class CommandEXPVFS extends Command {
 
-	public CommandEXPVFS(User user) {
-		super(user);
+	public CommandEXPVFS(Parser parser) {
+		super(parser);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class CommandEXPVFS extends Command {
 			System.out.println("Error : not enough arguments given to " + getName());
 		}else if(tk.countTokens()==1){
 			String hostPath = tk.nextToken();
-			run(Paths.get(hostPath), user.getCurrentVFS().getName());
+			run(Paths.get(hostPath), parser.getCurrentVFS().getName());
 			
 		}else if(tk.countTokens()==2){
 			//WARNING : the order convention here is not respected, to suit the specifications.
@@ -52,7 +52,7 @@ public class CommandEXPVFS extends Command {
 
 	public void run(Path hostPath, String vfsName){
 		try{
-			user.exportVFS(hostPath, user.getVFS(vfsName));
+			parser.exportVFS(hostPath, parser.getVFS(vfsName));
 		}catch(IOException e2){
 			System.out.println("Error : exportation failed, hostPath may be incorrect : "+ hostPath);
 		}

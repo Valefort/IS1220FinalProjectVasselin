@@ -6,8 +6,8 @@ import fr.ecp.IS1220.FinalProject.Vasselin.core.*;
 
 public class CommandCD extends Command {
 
-	public CommandCD(User user) {
-		super(user);
+	public CommandCD(Parser parser) {
+		super(parser);
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class CommandCD extends Command {
 		if(tk.countTokens()==0){
 			System.out.println("Error : not enough arguments given to cd");
 		}else if(tk.countTokens()==1){
-			run(user.getCurrentVFS().getName(),tk.nextToken());
+			run(parser.getCurrentVFS().getName(),tk.nextToken());
 		}else if(tk.countTokens()>=2){
 			run(tk.nextToken(),tk.nextToken());
 			if(tk.hasMoreTokens())
@@ -30,24 +30,24 @@ public class CommandCD extends Command {
 	}
 
 	private void run(String vfsname, String pathname){
-		VFS vfs = user.getVFS(vfsname);
+		VFS vfs = parser.getVFS(vfsname);
 		if(vfs==null){
 			System.out.println("Error : unknown VFS name in cd : "+vfsname);
 			return;
 		}
 
-		String oldPath = user.getCurrentPath();
-		VFS oldVFS = user.getCurrentVFS();
+		String oldPath = parser.getCurrentPath();
+		VFS oldVFS = parser.getCurrentVFS();
 
-		user.setCurrentVFS(vfs);
-		try{user.setCurrentPath(pathname);}
+		parser.setCurrentVFS(vfs);
+		try{parser.setCurrentPath(pathname);}
 		catch(InvalidPathException e){
-			try{user.setCurrentPath(oldPath);
-				user.setCurrentPath(user.toAbsolutePath(pathname));}
+			try{parser.setCurrentPath(oldPath);
+				parser.setCurrentPath(parser.toAbsolutePath(pathname));}
 			catch(InvalidPathException e2){
 				System.out.println("Error : invalid path in cd : "+pathname);
-				user.setCurrentVFS(oldVFS);
-				try{user.setCurrentPath(oldPath);}catch(InvalidPathException e3){
+				parser.setCurrentVFS(oldVFS);
+				try{parser.setCurrentPath(oldPath);}catch(InvalidPathException e3){
 					System.out.println("Warning : impossible to recover the previous working location : "+oldPath);
 				}
 			}

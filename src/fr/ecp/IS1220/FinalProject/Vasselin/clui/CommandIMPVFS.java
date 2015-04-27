@@ -27,8 +27,8 @@ import fr.ecp.IS1220.FinalProject.Vasselin.core.NameConflictException;
  */
 public class CommandIMPVFS extends Command {
 
-	public CommandIMPVFS(User user) {
-		super(user);
+	public CommandIMPVFS(Parser parser) {
+		super(parser);
 	}
 
 	@Override
@@ -43,11 +43,11 @@ public class CommandIMPVFS extends Command {
 			System.out.println("Error : not enough arguments given to " + getName());
 		}else if(tk.countTokens()==1){
 			String hostPath = tk.nextToken();
-			run(Paths.get(hostPath), user.getCurrentVFS().getName(),user.getCurrentPath());
+			run(Paths.get(hostPath), parser.getCurrentVFS().getName(),parser.getCurrentPath());
 		}else if(tk.countTokens()==2){
 			String hostPath = tk.nextToken();
 			String vfsPath = tk.nextToken();
-			run(Paths.get(hostPath), user.getCurrentVFS().getName(),vfsPath);
+			run(Paths.get(hostPath), parser.getCurrentVFS().getName(),vfsPath);
 		}else if(tk.countTokens()==3){
 			String hostPath = tk.nextToken();
 			String vfsName = tk.nextToken();
@@ -65,9 +65,9 @@ public class CommandIMPVFS extends Command {
 
 	public void run(Path hostPath, String vfsName, String vfsPath){
 		try{
-			user.importItem(hostPath, vfsName, vfsPath);
+			parser.importItem(hostPath, vfsName, vfsPath);
 		}catch(FileTooLargeException e1){
-			System.out.println("Error : the item to be imported is too large. The actual free space is "+ user.getVFS(vfsName).getFreeSpace());
+			System.out.println("Error : the item to be imported is too large. The actual free space is "+ parser.getVFS(vfsName).getFreeSpace());
 		}catch(IOException e2){
 			System.out.println("Error : importation failed, hostpath may be incorrect : "+ hostPath);
 		}catch(NameConflictException e3){

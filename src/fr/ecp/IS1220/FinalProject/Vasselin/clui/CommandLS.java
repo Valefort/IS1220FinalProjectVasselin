@@ -11,8 +11,8 @@ import fr.ecp.IS1220.FinalProject.Vasselin.core.VItem;
 
 public class CommandLS extends Command {
 
-	public CommandLS(User user) {
-		super(user);
+	public CommandLS(Parser parser) {
+		super(parser);
 	}
 
 	@Override
@@ -40,14 +40,14 @@ public class CommandLS extends Command {
 				run(vfsname,"",args);
 			}
 		}else{
-			run(user.getCurrentVFS().getName(),"", vfsname);
+			run(parser.getCurrentVFS().getName(),"", vfsname);
 		}
 	}
 	
 	private void run(String vfsname, String args, String pathname) {
-		VFS vfs = user.getVFS(vfsname);
+		VFS vfs = parser.getVFS(vfsname);
 		if(vfsname.equals(""))
-			vfs=user.getCurrentVFS();
+			vfs=parser.getCurrentVFS();
 		if(vfs==null){
 			System.out.println("Error : invalid VFS name in command ls : "+vfsname);
 			return;

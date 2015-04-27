@@ -14,8 +14,8 @@ import fr.ecp.IS1220.FinalProject.Vasselin.core.NotAVFSException;
 
 public class CommandCRVFS extends Command {
 	
-	public CommandCRVFS(User user) {
-		super(user);
+	public CommandCRVFS(Parser parser) {
+		super(parser);
 	}
 
 	@Override
@@ -50,12 +50,12 @@ public class CommandCRVFS extends Command {
 	 */
 	public void run(String concreteVFSPath, long maxSpace){
 		try{
-			user.createVFS(Paths.get(concreteVFSPath), maxSpace);
+			parser.createVFS(Paths.get(concreteVFSPath), maxSpace);
 		}catch(IOException e){
 			System.out.println("Error : cannot create the vfs at the specified path : " + concreteVFSPath.toString());
 		}
 		try{
-			user.openVFS(Paths.get(concreteVFSPath));
+			parser.openVFS(Paths.get(concreteVFSPath));
 		}catch(IOException e){
 			System.out.println("Error : cannot open the newly created VFS : IOException occured");
 			e.printStackTrace();
