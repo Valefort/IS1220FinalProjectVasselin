@@ -19,16 +19,6 @@ import fr.ecp.IS1220.FinalProject.Vasselin.core.test.VItemFactoryTest;
 
 public class UserTest {
 	
-	private boolean compareByteArray(byte[] a, byte[] b){
-		if(a.length != b.length)
-			return false;
-		for(int i=0; i<a.length;i++){
-			if(a[i]!=b[i])
-				return false;
-		}
-		return true;
-	}
-
 	@Test
 	public void testGetSetClipboard() throws Exception{
 		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Parser extends User {
@@ -14,13 +15,13 @@ public class Parser extends User {
 	//Attributes
 
 	private List<Command> commands;
-	
+
 	//To get available commands in the help command
-	
+
 	public List<Command> getCommands(){
 		return commands;
 	}
-	
+
 	public Command getCommand(String commandName){
 		for(Command c: commands){
 			if(c.getName().equals(commandName)){
@@ -48,9 +49,8 @@ public class Parser extends User {
 		commands.add(new CommandEXPVFS(this));
 		commands.add(new CommandHELP(this));
 		commands.add(new CommandRMVFS(this));
+		commands.add(new CommandOPENVFS(this));
 
-
-		
 	}
 
 	//Commands
@@ -89,31 +89,29 @@ public class Parser extends User {
 		in.close();
 		fr.close();
 	}
-	
+
+
 	public static void main(String[] args) {
 		Parser mainUser = new Parser();
-		Boolean cont = false;
 		String com = new String();
-		
+		Scanner sc = new Scanner(System.in);
+
 		System.out.println("Welcome to our VFS interface !");
-		
+
 		do{
-			System.out.println("Type command (type \"help\" for further informations) :");
-			
-			
-			try {
-				mainUser.parseCommand(com);
-			} catch (InvalidCommandException e) {System.out.println("Error : invalid command : "+com);}
-			
-			
-					
-			
-		}while(cont);
-		
-		
-		
-		
+			System.out.println("Type command (type \"help\" for further informations), or type \"stop\" to stop using the Interface.");
+			com = sc.nextLine();
+			if(com.equals("stop")){
+				System.out.println("Goodbye !");
+				sc.close();
+				break;
+			}else{
+				try {
+					mainUser.parseCommand(com);
+				} catch (InvalidCommandException e) {System.out.println("Error : invalid command : "+com);}
+			}	
+		}while(true);
 	}
-	
+
 
 }
