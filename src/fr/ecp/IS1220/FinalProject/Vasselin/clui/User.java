@@ -343,6 +343,18 @@ public class User {
 	}
 	
 	/**
+	 * This methods exports an opened VFS to the given path in the concrete file system.
+	 * @param hostPath : the ABSOLUTE path where the vfs will be exported.
+	 * @param vfs : the vfs to be exported
+	 */
+	public void exportVFS(Path hostPath, VFS vfs) throws IOException{
+		//The name of the root directory is changed to the vfsName just for the export
+		VItem root = vfs.getRoot();
+		root.setName(vfs.getName());
+		root.exportVItem(hostPath);
+		root.setName("root");
+	}
+	/**
 	 * Search in a given vfs named vfsName all the VItems named filename.
 	 * Returns a string containing all the pathes to the different files named filename.
 	 * @param vfsName : The name of the opened vfs where the search is to be performed.
