@@ -9,6 +9,12 @@ import fr.ecp.IS1220.FinalProject.Vasselin.core.VFS;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VFile;
 import fr.ecp.IS1220.FinalProject.Vasselin.core.VItem;
 
+
+/**
+ * Usage :
+ * ls args
+ *
+ */
 public class CommandLS extends Command {
 
 	public CommandLS(Parser parser) {
