@@ -89,5 +89,31 @@ public class Parser extends User {
 		in.close();
 		fr.close();
 	}
+	
+	public static void main(String[] args) {
+		Parser mainUser = new Parser();
+		Boolean cont = false;
+		String com = new String();
+		
+		System.out.println("Welcome to our VFS interface !");
+		
+		do{
+			System.out.println("Type command (type \"help\" for further informations) :");
+			
+			
+			try {
+				mainUser.parseCommand(com);
+			} catch (InvalidCommandException e) {System.out.println("Error : invalid command : "+com);}
+			
+			
+					
+			
+		}while(cont);
+		
+		
+		
+		
+	}
+	
 
 }

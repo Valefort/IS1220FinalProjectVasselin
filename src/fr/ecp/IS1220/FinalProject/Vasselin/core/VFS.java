@@ -260,20 +260,20 @@ public class VFS implements Serializable {
 //		}
 
 		
-		Path path = Paths.get("eval/host/example_music_storage.vfs");
-		long maxSpace = 20000000;
-		
-		try {
-		VFS example_music_storage = new VFS(maxSpace, path);
-		example_music_storage.getRoot().add(VItemFactory.importVItem(Paths.get("eval/host/MusicToImport")));
-		example_music_storage.save();
-		
-		//test_used_vfs.getRoot().exportVItem(Paths.get("eval/host/Exported"));
-		
-	} catch (Exception e) {
-		System.out.println("Error : impossible to create the vfs.");
-		e.printStackTrace();
-	}
+//		Path path = Paths.get("eval/host/example_music_storage.vfs");
+//		long maxSpace = 20000000;
+//		
+//		try {
+//		VFS example_music_storage = new VFS(maxSpace, path);
+//		example_music_storage.getRoot().add(VItemFactory.importVItem(Paths.get("eval/host/MusicToImport")));
+//		example_music_storage.save();
+//		
+//		//test_used_vfs.getRoot().exportVItem(Paths.get("eval/host/Exported"));
+//		
+//	} catch (Exception e) {
+//		System.out.println("Error : impossible to create the vfs.");
+//		e.printStackTrace();
+//	}
 		
 		
 	}
