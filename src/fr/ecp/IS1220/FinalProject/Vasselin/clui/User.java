@@ -180,7 +180,6 @@ public class User {
 	public void createVFS(Path concreteVFSPath, long maxSpace)throws IOException{
 	new VFS(maxSpace, concreteVFSPath); //warning : the parameters are swapped between the method in the VFS class and the current method.
 	}
-	
 	/**
 	 * Remove a given VFS : closes it and deletes it.
 	 * @param vfs : the vfs to be removed
@@ -189,8 +188,6 @@ public class User {
 		closeVFS(vfs);
 		vfs.delete();
 	}
-
-	
 	/**
 	 * A basic method to retrieve the directory containing a file/directory in the currentVFS.
 	 * @param path : the file/directory whose parent directory must be determined, in the currentVFS
@@ -320,6 +317,30 @@ public class User {
 		target.add(test);//No NameConflictException should be thrown here
 	}
 	
+	
+	/**
+	 * This method imports a given concrete file or directory in a given directory of the vfs.
+	 * @param hostPath : the path to the item (file or directory) to be imported
+	 * @param vfsName : the name of the opened vfs where to import the item
+	 * @param vfsPath : the path to the directory where the item is about to be imported WARNING : this path must be absolute !
+	 * @throws FileTooLargeException
+	 * @throws IOException
+	 * @throws NameConflictException
+	 * @throws MisLeadingPathException
+	 * @throws InvalidPathException
+	 */
+	public void importItem(Path hostPath, String vfsName, String vfsPath) throws MisLeadingPathException, FileTooLargeException, IOException, NameConflictException, InvalidPathException{
+		VFS vfs = getVFS(vfsName);
+		setCurrentPath(vfsPath);
+		
+		//Checks if the actual VItem is a directory and so if it can store the imported item.
+		//If it is a file, an exception is thrown
+		if(currentVItem instanceof VFile){
+			throw new MisLeadingPathException();
+		}else{ //if it is a directory, the importation is performed
+			currentVItem.add(VItemFactory.importVItem(hostPath));
+		}
+	}
 	
 	/**
 	 * Search in a given vfs named vfsName all the VItems named filename.
