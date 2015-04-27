@@ -35,7 +35,7 @@ public class VItemFactory {
 		}else{//here, f is a directory
 			VItem res = new VDirectory(f.getName());
 			if(((!f.isDirectory()) && (!f.isFile())))
-				System.out.println("Zut !");
+				System.out.println("The file to be imported cannot be identified as a file or a directory.");
 			for(String s : f.list()){
 				res.add(importVItem(Paths.get(f.getPath(), s)));
 			}

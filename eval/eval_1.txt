@@ -1,4 +1,7 @@
 //IMPORTANT : to run the program, just run the main function of the class Parser
+//This script tests the following commands :
+// ls, ls -l, cd, help, free, find
+
 
 //Opens the existing vfs test_used_vfs.vfs, which contains the toImport folder.
 openvfs eval/host/test_used_vfs.vfs
@@ -13,4 +16,9 @@ ls
 cd root/toImport
 ls
 ls test_used_vfs.vfs -l root/toImport
-
+free
+help
+ls
+//find does not work :(
+find test_used_vfs.vfs Latin.txt
+find Latin.txt

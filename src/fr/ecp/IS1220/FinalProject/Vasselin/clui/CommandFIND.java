@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 /**
  * Usage :
- * find fvsName filename
+ * find vfsName filename
  * find fileName
  */
 public class CommandFIND extends Command {
