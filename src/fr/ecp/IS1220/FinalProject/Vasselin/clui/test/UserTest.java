@@ -204,7 +204,6 @@ public class UserTest {
 		
 	}
 	
-	//Il n'arrive pas à ouvrir un vfs fraichement créé...
 	@Test
 	public void testRemoveVFS() throws Exception{
 		User user = new User();
@@ -217,7 +216,7 @@ public class UserTest {
 		user.removeVFS(vfsToRemove);
 
 		assertTrue(user.getOpenedVFS().isEmpty());
-//		assertTrue(!(new File("eval/host/test_create_vfs.vfs").exists()));
+		assertTrue(!(new File("eval/host/test_create_vfs.vfs").exists()));
 	}
 	
 	@Test
@@ -234,7 +233,7 @@ public class UserTest {
 		user.setCurrentPath(referencePath);
 		VItem b = user.getCurrentVItem();
 		
-		assertTrue(VItemFactoryTest.alike(a, b));
+		assertTrue(a.getName().equals(b.getName()));
 		
 	}
 	

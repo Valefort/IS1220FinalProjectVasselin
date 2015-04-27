@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 //import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,13 @@ public class VFS implements Serializable {
 		//Writing the vfs in a file calling the generate method.
 		this.generate(path); 
 		actualFile = path.toFile();
+		
+		try {
+			save();
+		} catch (MaxSizeExceededException e) { //this is not going to happen, except if the maxSize is about 10 bytes...
+			System.out.println("Error : cannot create VFS : given maximum size is too low.");
+			e.printStackTrace();
+		}
 	}
 
 	//----------Saving functionalities-----------------------------------------
@@ -236,21 +244,21 @@ public class VFS implements Serializable {
 	
 	
 	//-----------Generation of the vfs file used_test_vfs.vfs------------------	
-//	public static void main(String[] args) {
-//		Path path = Paths.get("eval/host/test_used_vfs.vfs");
-//		long maxSpace = 30000000;
-//		try {
-//			VFS test_used_vfs = new VFS(maxSpace, path);
-//			test_used_vfs.getRoot().add(VItemFactory.importVItem(Paths.get("eval/host/toImport")));
-//			test_used_vfs.save();
-//			
-//			test_used_vfs.getRoot().exportVItem(Paths.get("eval/host/Exported"));
-//			
-//		} catch (Exception e) {
-//			System.out.println("Error : impossible to create the vfs.");
-//			e.printStackTrace();
-//		}
-//	}
+	public static void main(String[] args) {
+		Path path = Paths.get("eval/host/test_used_vfs.vfs");
+		long maxSpace = 30000000;
+		try {
+			VFS test_used_vfs = new VFS(maxSpace, path);
+			test_used_vfs.getRoot().add(VItemFactory.importVItem(Paths.get("eval/host/toImport")));
+			test_used_vfs.save();
+			
+			test_used_vfs.getRoot().exportVItem(Paths.get("eval/host/Exported"));
+			
+		} catch (Exception e) {
+			System.out.println("Error : impossible to create the vfs.");
+			e.printStackTrace();
+		}
+	}
 	
 		
 
