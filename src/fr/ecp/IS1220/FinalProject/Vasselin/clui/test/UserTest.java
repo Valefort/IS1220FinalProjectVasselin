@@ -169,8 +169,10 @@ public class UserTest {
 	}
 		
 	@Test
-	public void testCloseVFS(){
+	public void testCloseVFS() throws Exception{
 		fail("Not yet implemented");
+		User test = new User(Paths.get("eval/host/test_used_vfs.vfs"));
+		
 	}
 	
 	@Test

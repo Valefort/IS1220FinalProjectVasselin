@@ -236,18 +236,18 @@ public class VFS implements Serializable {
 	
 	
 	//-----------Generation of the vfs file used_test_vfs.vfs------------------	
-//	public static void main(String[] args) {
-//		Path path = Paths.get("");
-//		long maxSpace = 10000;
-//		try {
-//			VFS used_test_vfs = new VFS(maxSpace, path);
-//		} catch (IOException e) {
-//			System.out.println("Error : impossible to create the vfs.");
-//			e.printStackTrace();
-//		}
-//
-//	}
+	public static void main(String[] args) {
+		Path path = Paths.get("eval/host/test_used_vfs.vfs");
+		long maxSpace = 10000;
+		try {
+			VFS test_used_vfs = new VFS(maxSpace, path);
+		} catch (IOException e) {
+			System.out.println("Error : impossible to create the vfs.");
+			e.printStackTrace();
+		}
+
+	}
 	
-	
+		
 
 }
