@@ -1,0 +1,39 @@
+//IMPORTANT : to run the program, just run the main function of the class Parser
+//This script tests the following commands :
+// crvfs, impvfs, expvfs, rmvfs, cp, rm
+
+crvfs eval/Created/created_vfs.vfs 42000000
+
+
+impvfs eval/host/toImport/Portal/StillAlive.mp3 created_vfs.vfs root
+
+openvfs eval/host/test_used_vfs.vfs
+
+cd created_vfs.vfs root 
+
+ls
+
+impvfs eval/host/toImport/Portal created_vfs.vfs root
+
+ls
+
+rm StillAlive.mp3
+
+ls
+
+//An absolute path is needed there, so this command is to be completed with your chosen absolute path
+expvfs created_vfs.vfs <absolutePath>
+
+cd test_used_vfs.vfs root/toImport
+ls
+
+rmvfs created_vfs.vfs
+
+//This will return an error, as the vfs has been removed.
+cd created_vfs.vfs root
+
+
+
+
+
+
