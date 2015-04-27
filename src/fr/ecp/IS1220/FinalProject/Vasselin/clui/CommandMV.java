@@ -54,5 +54,10 @@ public class CommandMV extends Command {
 			System.out.println("Error : there is already an item with this name : "+newpath);
 		}
 	}
+	
+	@Override
+	public void help(){
+		
+	}
 
 }

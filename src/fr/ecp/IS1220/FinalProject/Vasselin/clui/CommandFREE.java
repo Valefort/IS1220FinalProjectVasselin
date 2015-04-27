@@ -39,5 +39,9 @@ public class CommandFREE extends Command {
 		System.out.println("The free space of the vfs " + vfs.getName() + "is : " + vfs.getFreeSpace());
 
 	}
+	@Override
+	public void help(){
+		
+	}
 
 }

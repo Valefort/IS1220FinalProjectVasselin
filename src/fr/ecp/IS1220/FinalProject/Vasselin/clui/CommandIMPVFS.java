@@ -78,5 +78,10 @@ public class CommandIMPVFS extends Command {
 			System.out.println("Error : the vfsPath, "+vfsPath + " is invalid.");
 		}
 	}
+	
+	@Override
+	public void help(){
+		
+	}
 
 }

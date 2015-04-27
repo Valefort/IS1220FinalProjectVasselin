@@ -53,5 +53,10 @@ public class CommandCD extends Command {
 			}
 		}
 	}
+	
+	@Override
+	public void help(){
+		
+	}
 
 }

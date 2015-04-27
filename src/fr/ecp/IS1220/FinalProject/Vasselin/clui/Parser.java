@@ -14,6 +14,21 @@ public class Parser extends User {
 	//Attributes
 
 	private List<Command> commands;
+	
+	//To get available commands in the help command
+	
+	public List<Command> getCommands(){
+		return commands;
+	}
+	
+	public Command getCommand(String commandName){
+		for(Command c: commands){
+			if(c.getName().equals(commandName)){
+				return c;
+			}
+		}
+		return null;
+	}
 
 	//Constructors
 

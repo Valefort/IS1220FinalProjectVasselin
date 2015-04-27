@@ -40,5 +40,10 @@ public class CommandRMVFS extends Command {
 			System.out.println("Error : error during the deletion of the vfs.");
 		}
 	}
+	
+	@Override
+	public void help(){
+		
+	}
 
 }

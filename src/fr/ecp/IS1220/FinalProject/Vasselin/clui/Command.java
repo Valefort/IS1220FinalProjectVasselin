@@ -23,4 +23,6 @@ public abstract class Command {
 	 * @param com : the command line to be parsed.
 	 */
 	abstract public void parse(String com);
+	
+	abstract public void help();
 }

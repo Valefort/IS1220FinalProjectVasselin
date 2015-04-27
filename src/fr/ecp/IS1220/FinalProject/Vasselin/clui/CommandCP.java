@@ -87,5 +87,10 @@ public class CommandCP extends Command {
 		
 		return res;
 	}
+	
+	@Override
+	public void help(){
+		
+	}
 
 }

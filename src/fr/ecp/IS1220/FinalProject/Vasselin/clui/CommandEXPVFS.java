@@ -57,4 +57,9 @@ public class CommandEXPVFS extends Command {
 			System.out.println("Error : exportation failed, hostPath may be incorrect : "+ hostPath);
 		}
 	}
+	
+	@Override
+	public void help(){
+		
+	}
 }

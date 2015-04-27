@@ -47,5 +47,9 @@ public class CommandFIND extends Command {
 			System.out.println("The file +"+filename+" in the vfs "+vfsName+ " is at the following path :\n"+result);
 		}
 	}
+	@Override
+	public void help(){
+		
+	}
 
 }

@@ -95,5 +95,10 @@ public class CommandLS extends Command {
 		}
 		System.out.print(res);
 	}
+	
+	@Override
+	public void help(){
+		
+	}
 
 }
