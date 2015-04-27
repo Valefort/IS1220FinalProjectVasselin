@@ -1,0 +1,16 @@
+//IMPORTANT : to run the program, just run the main function of the class Parser
+
+//Opens the existing vfs test_used_vfs.vfs, which contains the toImport folder.
+openvfs eval/host/test_used_vfs.vfs
+ls
+cd toImport
+ls
+cd Portal
+ls
+cd ..
+cd Shakespeare
+ls
+cd root/toImport
+ls
+ls test_used_vfs.vfs -l root/toImport
+

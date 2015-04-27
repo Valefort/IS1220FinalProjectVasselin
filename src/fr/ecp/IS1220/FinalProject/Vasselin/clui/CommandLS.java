@@ -12,7 +12,6 @@ import fr.ecp.IS1220.FinalProject.Vasselin.core.VItem;
 
 /**
  * Usage :
- * ls args
  *
  */
 public class CommandLS extends Command {
@@ -30,7 +29,7 @@ public class CommandLS extends Command {
 	public void parse(String com) {
 		StringTokenizer tk = new StringTokenizer(com);
 		if(!tk.hasMoreTokens()){
-			System.out.println("Error : not enough arguments in ls");
+			run(parser.getCurrentVFS().getName(),"", parser.getCurrentPath());
 			return;
 		}
 		String vfsname=tk.nextToken();
